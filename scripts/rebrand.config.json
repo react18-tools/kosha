@@ -1,6 +1,6 @@
 {
+  "packageName": "kosha",
   "owner": "react18-tools",
-  "repo": "turborepo-template",
-  "packageName": "react18-loaders",
-  "title": "React 18 Loaders"
+  "repo": "kosha",
+  "title": "Kosha"
 }
