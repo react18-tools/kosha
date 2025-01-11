@@ -39,7 +39,7 @@ export const create = <T>(
    * A function to extract a slice of the state for optimization.
    * @returns {U | T} The selected slice or the entire state.
    */
-  return <U = T>(selectorFunc?: (state: T) => U): U => {
+  const useHook = <U = T>(selectorFunc?: (state: T) => U): U => {
     const getSnapshot = () => (selectorFunc ? selectorFunc(stateRef.k!) : stateRef.k) as U;
     return useSyncExternalStore(
       listener => {
@@ -51,4 +51,7 @@ export const create = <T>(
       getSnapshot,
     );
   };
+
+  useHook.set = set;
+  return useHook;
 };

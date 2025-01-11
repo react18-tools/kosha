@@ -38,48 +38,6 @@ npm install kosha
 yarn add kosha
 ```
 
-## Want Lite Version? [![npm bundle size](https://img.shields.io/bundlephobia/minzip/kosha-lite)](https://www.npmjs.com/package/kosha-lite) [![Version](https://img.shields.io/npm/v/kosha-lite.svg?colorB=green)](https://www.npmjs.com/package/kosha-lite) [![Downloads](https://img.jsdelivr.com/img.shields.io/npm/d18m/kosha-lite.svg)](https://www.npmjs.com/package/kosha-lite)
-
-```bash
-pnpm add kosha-lite
-```
-
-**or**
-
-```bash
-npm install kosha-lite
-```
-
-**or**
-
-```bash
-yarn add kosha-lite
-```
-
-> You need `r18gs` as a peer-dependency
-
-### Import Styles
-
-You can import styles globally or within specific components.
-
-```css
-/* globals.css */
-@import "kosha/dist";
-```
-
-```tsx
-// layout.tsx
-import "kosha/dist/index.css";
-```
-
-For selective imports:
-
-```css
-/* globals.css */
-@import "kosha/dist/client"; /** required if you are using LoaderContainer */
-@import "kosha/dist/server/bars/bars1";
-```
-
 ### Usage
 
 Using loaders is straightforward.
@@ -122,8 +80,6 @@ export default MyComponent() {
 ## License
 
 This library is licensed under the MPL-2.0 open-source license.
-
-
 
 > <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 20px"/> Please enroll in [our courses](https://mayank-chaudhari.vercel.app/courses) or [sponsor](https://github.com/sponsors/mayank1513) our work.
 
