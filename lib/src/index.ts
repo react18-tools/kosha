@@ -4,13 +4,28 @@
 
 import { useSyncExternalStore } from "react";
 
-type ListenerWithSelector<T> = [listener: () => void, selectorFunc?: (state: T) => unknown];
+type ListenerWithSelector<T> = [listener: () => void, selectorFunc?: (state: T | null) => unknown];
 
-export const create = <T>(initialState: T) => {
-  let state = initialState;
+export const create = <T>(storeCreator: (set: (state: T) => void, get: () => T | null) => T) => {
   const listeners = new Set<ListenerWithSelector<T>>();
-  return (selectorFunc?: (state: T) => unknown) => {
-    const getSnapshot = () => (selectorFunc ? selectorFunc(state) : state);
+  // Avoid closure lockins by using ref
+  const stateRef: { k: T | null } = { k: null };
+  const get = () => stateRef.k;
+  const set = (newState: T) => {
+    const oldState = stateRef.k;
+    stateRef.k = typeof newState === "function" ? newState(stateRef.k) : newState;
+    listeners.forEach(([listener, selectorFunc]) => {
+      if (
+        !selectorFunc ||
+        JSON.stringify(selectorFunc(stateRef.k)) != JSON.stringify(selectorFunc(oldState))
+      )
+        listener();
+    });
+  };
+
+  stateRef.k = storeCreator(set, get);
+  return (selectorFunc?: (state: T | null) => unknown) => {
+    const getSnapshot = () => (selectorFunc ? selectorFunc(stateRef.k) : stateRef.k);
     const value = useSyncExternalStore(
       listener => {
         const listenerWithSelector = [listener, selectorFunc] as ListenerWithSelector<T>;
@@ -20,19 +35,11 @@ export const create = <T>(initialState: T) => {
       getSnapshot,
       getSnapshot,
     );
-    return [
-      value,
-      (newState: T | ((state: T) => T)) => {
-        const oldState = state;
-        state = typeof newState === "function" ? (newState as (state: T) => T)(state) : newState;
-        listeners.forEach(([listener, selectorFunc]) => {
-          if (
-            !selectorFunc ||
-            JSON.stringify(selectorFunc(state)) != JSON.stringify(selectorFunc(oldState))
-          )
-            listener();
-        });
-      },
-    ];
+    return value;
   };
 };
+
+const useKosha = create(set => ({
+  banana: 2,
+  setBanana: (banana: number) => set({ banana }),
+}));
