@@ -7,6 +7,7 @@ interface MyKosha {
     name: string;
     age: number;
   };
+  setCount: (count: number) => void;
 }
 
 export const useMyKosha = create<MyKosha>(set => ({
@@ -16,4 +17,5 @@ export const useMyKosha = create<MyKosha>(set => ({
     name: "John",
     age: 30,
   },
+  setCount: (count: number) => set(state => ({ ...state, count })),
 }));
