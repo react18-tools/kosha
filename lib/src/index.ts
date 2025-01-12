@@ -13,6 +13,8 @@ import { useSyncExternalStore } from "react";
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
 type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
 
+const ObjectAssign = Object.assign;
+
 export const create = <T>(
   storeCreator: (set: (state: StateSetterArgType<T>) => void, get: () => T | null) => T,
 ) => {
@@ -24,13 +26,14 @@ export const create = <T>(
     const partial = newState instanceof Function ? newState(stateRef.k!) : newState;
     stateRef.k =
       partial instanceof Object && !Array.isArray(partial)
-        ? { ...stateRef.k!, ...partial }
+        ? ObjectAssign(stateRef.k!, partial)
         : (partial as T);
 
     listeners.forEach(
       ([listener, selectorFunc]) =>
         (!selectorFunc ||
-          JSON.stringify(selectorFunc(stateRef.k!)) != JSON.stringify(selectorFunc(oldState!))) &&
+          (oldState &&
+            JSON.stringify(selectorFunc(stateRef.k!)) != JSON.stringify(selectorFunc(oldState)))) &&
         listener(),
     );
   };
@@ -43,8 +46,15 @@ export const create = <T>(
    * A function to extract a slice of the state for optimization.
    * @returns {U | T} The selected slice or the entire state.
    */
+  const map = new Map<(state: T) => unknown, unknown>();
   const useHook = <U = T>(selectorFunc?: (state: T) => U): U => {
-    const getSnapshot = () => (selectorFunc ? selectorFunc(stateRef.k!) : stateRef.k) as U;
+    const getSlice = () => {
+      const obj = map.get(selectorFunc!) ?? {};
+      ObjectAssign(obj, selectorFunc!(stateRef.k!));
+      map.set(selectorFunc!, obj);
+      return obj as U;
+    };
+    const getSnapshot = () => (selectorFunc ? getSlice() : stateRef.k) as U;
     return useSyncExternalStore(
       listener => {
         const listenerWithSelector = [listener, selectorFunc] as ListenerWithSelector<T, U>;
