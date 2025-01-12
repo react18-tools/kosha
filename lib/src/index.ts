@@ -14,6 +14,7 @@ type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: 
 type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
 
 const ObjectAssign = Object.assign;
+const isArray = Array.isArray;
 
 export const create = <T>(
   storeCreator: (set: (state: StateSetterArgType<T>) => void, get: () => T | null) => T,
@@ -25,7 +26,7 @@ export const create = <T>(
     const oldState = stateRef.k;
     const partial = newState instanceof Function ? newState(stateRef.k!) : newState;
     stateRef.k =
-      partial instanceof Object && !Array.isArray(partial)
+      partial instanceof Object && !isArray(partial)
         ? ObjectAssign(stateRef.k!, partial)
         : (partial as T);
 
@@ -49,8 +50,14 @@ export const create = <T>(
   const map = new Map<(state: T) => unknown, unknown>();
   const useHook = <U = T>(selectorFunc?: (state: T) => U): U => {
     const getSlice = () => {
-      const obj = map.get(selectorFunc!) ?? {};
-      ObjectAssign(obj, selectorFunc!(stateRef.k!));
+      const newValue = selectorFunc!(stateRef.k!);
+      if (!(newValue instanceof Object)) return newValue as U;
+
+      const isArr = isArray(newValue);
+
+      const obj = map.get(selectorFunc!) ?? (isArr ? [] : {});
+      if (isArr) (obj as unknown[]).splice(0, (obj as unknown[]).length, ...newValue);
+      else ObjectAssign(obj, selectorFunc!(stateRef.k!));
       map.set(selectorFunc!, obj);
       return obj as U;
     };
