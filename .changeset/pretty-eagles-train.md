@@ -1,5 +1,0 @@
----
-"kosha": patch
----
-
-Support partials
