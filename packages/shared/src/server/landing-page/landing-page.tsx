@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import styles from "./landing-page.module.scss";
 import { Cards } from "../cards";
 import { Logo } from "../logo";
-import featured from "@repo/scripts/featured.json";
 import rebrandingConfig from "@repo/scripts/rebrand.config.json";
 
 interface LandingPageProps {
@@ -49,7 +48,6 @@ export function LandingPage({ title, children }: LandingPageProps) {
       <div className={styles.featured}>
         <h2>Featured packages built with this template.</h2>
         <hr />
-        <Cards cards={featured} />
       </div>
       <Cards cards={cards} />
     </main>
