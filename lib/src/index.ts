@@ -13,7 +13,7 @@ import { useSyncExternalStore } from "react";
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
 type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
 
-export const create = <T>(
+export const create = <T extends object>(
   storeCreator: (set: (state: StateSetterArgType<T>) => void, get: () => T | null) => T,
 ) => {
   const listeners = new Set<ListenerWithSelector<T, unknown>>();
@@ -22,10 +22,7 @@ export const create = <T>(
   const set = (newState: StateSetterArgType<T>) => {
     const oldState = stateRef.k;
     const partial = newState instanceof Function ? newState(stateRef.k!) : newState;
-    stateRef.k =
-      partial instanceof Object && !Array.isArray(partial)
-        ? { ...stateRef.k!, ...partial }
-        : (partial as T);
+    stateRef.k = { ...stateRef.k!, ...partial };
 
     listeners.forEach(
       ([listener, selectorFunc]) =>
