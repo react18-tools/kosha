@@ -4,7 +4,7 @@
 
 ### **A Modern, Lightweight, and Powerful State Management Library for React**
 
-Kosha is a minimal global state management solution tailored for modern React applications. At only **571 bytes** (minzipped), it provides exceptional performance and simplicity for developers focused on clean and efficient code.
+Kosha is a minimal global state management solution tailored for modern React applications. At only **420 bytes** (minzipped), it provides exceptional performance and simplicity for developers focused on clean and efficient code.
 
 ---
 
