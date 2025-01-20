@@ -11,11 +11,16 @@
 import { useSyncExternalStore } from "react";
 
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
-type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
+export type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
 
-export const create = <T extends object>(
-  storeCreator: (set: (state: StateSetterArgType<T>) => void, get: () => T | null) => T,
-) => {
+export type StoreCreator<T> = (
+  set: (state: StateSetterArgType<T>) => void,
+  get: () => T | null,
+) => T;
+
+export type Middleware<T> = (storeCreator: StoreCreator<T>) => StoreCreator<T>;
+
+export const create = <T extends object>(storeCreator: StoreCreator<T>) => {
   const listeners = new Set<ListenerWithSelector<T, unknown>>();
   const stateRef: { k: T | null } = { k: null };
   const get = () => stateRef.k;
