@@ -1,5 +1,14 @@
 # @repo/shared
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [ff41fca]
+- Updated dependencies [bf86303]
+- Updated dependencies [c52f018]
+  - kosha@1.0.0
+
 ## 0.0.1
 
 ### Patch Changes
