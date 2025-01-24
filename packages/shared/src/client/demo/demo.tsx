@@ -12,6 +12,8 @@ import couter2Code from "./with-selectors/counter.tsx?raw";
 import counterWithoutSelectorscode from "./with-selectors/counter-without-selectors.tsx?raw";
 import headerCode from "./with-selectors/header.tsx?raw";
 import userDataCode from "./with-selectors/user-data.tsx?raw";
+import { PersistedCounter } from "./persist";
+import PersistedCounterCode from "./persist?raw";
 
 const basicExCode = [
   { filename: "counter.tsx", code: counterCode },
@@ -42,6 +44,10 @@ export function Demo() {
       <div className={styles.demo}>
         <WithSelector />
         <CodeDisplay code={withSelectorExCode} />
+      </div>
+      <div className={styles.demo}>
+        <PersistedCounter />
+        <CodeDisplay code={[{ filename: "index.tsx", code: PersistedCounterCode }]} />
       </div>
     </>
   );

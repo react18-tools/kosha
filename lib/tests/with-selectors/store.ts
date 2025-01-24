@@ -1,4 +1,4 @@
-import { create } from "../../src";
+import { create, StateSetterArgType } from "../../src";
 
 interface MyKosha {
   count: number;
@@ -8,6 +8,7 @@ interface MyKosha {
     age: number;
   };
   setCount: (count: number) => void;
+  set: (state: StateSetterArgType<MyKosha>) => void;
 }
 
 export const useMyKosha = create<MyKosha>(set => ({
@@ -18,4 +19,5 @@ export const useMyKosha = create<MyKosha>(set => ({
     age: 30,
   },
   setCount: (count: number) => set(state => ({ ...state, count })),
+  set,
 }));

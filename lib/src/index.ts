@@ -10,20 +10,21 @@
 
 import { useSyncExternalStore } from "react";
 
+export type BaseType = Omit<object, "__get">;
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
 export type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
 
-export type StoreCreator<T> = (
+export type StoreCreator<T extends BaseType> = (
   set: (state: StateSetterArgType<T>) => void,
   get: () => T | null,
-) => T;
+) => T & { __get?: () => T | null };
 
-export type Middleware<T> = (storeCreator: StoreCreator<T>) => StoreCreator<T>;
+export type Middleware<T extends BaseType> = (storeCreator: StoreCreator<T>) => StoreCreator<T>;
 
-export const create = <T extends object>(storeCreator: StoreCreator<T>) => {
+export const create = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
   const listeners = new Set<ListenerWithSelector<T, unknown>>();
   const stateRef: { k: T | null } = { k: null };
-  const get = () => stateRef.k;
+  let get = () => stateRef.k;
   const set = (newState: StateSetterArgType<T>) => {
     const oldState = stateRef.k;
     const partial = newState instanceof Function ? newState(stateRef.k!) : newState;
@@ -39,7 +40,10 @@ export const create = <T extends object>(storeCreator: StoreCreator<T>) => {
     );
   };
 
-  stateRef.k = storeCreator(set, get);
+  const { __get, ...rest } = storeCreator(set, get);
+  // @ts-expect-error -- will fix
+  stateRef.k = rest;
+  get = __get ?? get;
 
   /**
    * A React hook to access the store's state or derived slices of it.
@@ -50,13 +54,13 @@ export const create = <T extends object>(storeCreator: StoreCreator<T>) => {
   const map = new Map<(state: T) => unknown, unknown>();
   const useHook = <U = T>(selectorFunc?: (state: T) => U): U => {
     const getSlice = () => {
-      const newValue = selectorFunc!(stateRef.k!);
+      const newValue = selectorFunc!(get()!);
       const obj = map.get(selectorFunc!);
       const finalValue = JSON.stringify(obj) === JSON.stringify(newValue) ? obj : newValue;
       map.set(selectorFunc!, finalValue);
       return finalValue as U;
     };
-    const getSnapshot = () => (selectorFunc ? getSlice() : stateRef.k) as U;
+    const getSnapshot = () => (selectorFunc ? getSlice() : get()) as U;
     return useSyncExternalStore(
       listener => {
         const listenerWithSelector = [listener, selectorFunc] as ListenerWithSelector<T, U>;
@@ -68,6 +72,5 @@ export const create = <T extends object>(storeCreator: StoreCreator<T>) => {
     );
   };
 
-  useHook.set = set;
   return useHook;
 };

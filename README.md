@@ -30,21 +30,14 @@ Kosha is a minimal global state management solution tailored for modern React ap
      set(state => ({ count: state.count + 1 }));
      ```
 
-4. **Direct Store Updates**
-
-   - Use `useKosha.set` to update the entire store directly:
-     ```tsx
-     useKosha.set({ count: 42, user: "John Doe" });
-     ```
-
-5. **Flexible Consumption**
+4. **Flexible Consumption**
 
    - Use the entire store or specific selectors as needed:
      ```tsx
      const { count, setCount } = useKosha();
      ```
 
-6. **Concurrent Rendering Ready**
+5. **Concurrent Rendering Ready**
    - Built on React’s `useSyncExternalStore`, ensuring compatibility with React 18+ features.
 
 ---
@@ -113,14 +106,6 @@ const Counter = () => {
     </div>
   );
 };
-```
-
-### Direct Store Updates
-
-You can also use `useKosha.set` to update the entire store directly:
-
-```tsx
-useKosha.set({ count: 42, user: "John Doe" });
 ```
 
 ---

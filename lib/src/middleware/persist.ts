@@ -1,17 +1,14 @@
-import { Middleware, StateSetterArgType } from "..";
+import { BaseType, Middleware, StateSetterArgType } from "..";
 
-export interface PersistOptions<S, PersistedState = S> {
+export interface PersistOptions<S> {
   /** Storage Key (must be unique) */
   key: string;
   /**
-   * Use a custom persist storage.
+   * Filter the persisted value.
    *
-   * Combining `createJSONStorage` helps creating a persist storage
-   * with JSON.parse and JSON.stringify.
-   *
-   * @default createJSONStorage(() => localStorage)
+   * @params state The state's value
    */
-  partialize?: (state: Partial<S>) => PersistedState;
+  partialize?: (state: S) => Partial<S>;
   /**
    * If the stored state's version mismatch the one specified here, the storage will not be used.
    * This is useful when adding a breaking change to your store.
@@ -21,33 +18,52 @@ export interface PersistOptions<S, PersistedState = S> {
    * A function to perform persisted state migration.
    * This function will be called when persisted state versions mismatch with the one specified here.
    */
-  migrate?: (persistedState: unknown, version: number) => PersistedState | Promise<PersistedState>;
+  migrate?: (persistedState: unknown, version: number) => Partial<S> | Promise<Partial<S>>;
 }
 
-export const persist = <T, Ps>(options: PersistOptions<T, Ps>): Middleware<T> => {
-  if (typeof localStorage === "undefined") return stateCreator => stateCreator;
-  return stateCreator => (set, get) => {
+export const persist =
+  <T extends BaseType>(options: PersistOptions<T>): Middleware<T> =>
+  stateCreator =>
+  (set, get) => {
+    let isSynced = false;
     const onStorageChange = () => {
       const persistedVal = localStorage.getItem(options.key);
       if (!persistedVal) return;
       const parsed = JSON.parse(persistedVal);
-      if (parsed.version !== options.version) {
-        if (options.migrate) options.migrate(parsed.state, parsed.version);
-      } else return;
-      set(parsed.state);
+      if (options.version === undefined || options.version === parsed.version) {
+        console.log({ parsed });
+        set(parsed.state);
+      } else if (options.migrate) {
+        const newState = options.migrate(parsed.state, parsed.version);
+        if (newState instanceof Promise) {
+          newState.then(newState => {
+            set(newState);
+          });
+        } else {
+          set(newState);
+        }
+      }
     };
-    onstorage = onStorageChange;
-    onStorageChange();
     const persistSetter = (newStatePartial: StateSetterArgType<T>) => {
-      const newState =
-        newStatePartial instanceof Function ? newStatePartial(get()!) : newStatePartial;
-      const partial = options.partialize ? options.partialize(newState) : newState;
+      const newState = {
+        ...get(),
+        ...(newStatePartial instanceof Function ? newStatePartial(get()!) : newStatePartial),
+      };
+      const partial = options.partialize ? options.partialize(newState as T) : newState;
       localStorage.setItem(
         options.key,
         JSON.stringify({ state: partial, version: options.version }),
       );
-      set(newStatePartial);
+      set(newState);
     };
-    return stateCreator(persistSetter, get);
+    const persistGetter = () => {
+      console.log("persist getter called --- ");
+      if (!isSynced && typeof window !== "undefined") {
+        onStorageChange();
+        window.addEventListener("storage", onStorageChange);
+        isSynced = true;
+      }
+      return get();
+    };
+    return { ...stateCreator(persistSetter, get), __get: persistGetter };
   };
-};
