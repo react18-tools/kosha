@@ -108,6 +108,22 @@ const Counter = () => {
 };
 ```
 
+### Direct Store Updates
+
+In the latest version, the `.set` method has been removed from the hook. This means `useKosha.set` is no longer available by default.
+
+To use the `set` method, you must explicitly expose it within your store:
+
+```typescript
+import { create } from "kosha";
+
+const useKosha = create(set => ({
+  count: 0,
+  increment: () => set(state => ({ count: state.count + 1 })),
+  set, // <- Expose the set method to use it as a standard setter with full functionality
+}));
+```
+
 ---
 
 This post provides a clear comparison between **Kosha** and **Zustand**, emphasizing Kosha's advantages in terms of size, performance, and flexibility. Here’s a brief recap and refinement:
