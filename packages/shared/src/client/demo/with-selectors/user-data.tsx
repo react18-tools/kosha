@@ -3,7 +3,7 @@ import { useMyKosha } from "./store";
 
 export function UserData() {
   const user = useMyKosha(state => state.user);
-  const setState = useMyKosha.set;
+  const setState = useMyKosha(state => state.set);
   const renderCount = useRef(0);
   renderCount.current++;
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

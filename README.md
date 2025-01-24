@@ -30,21 +30,14 @@ Kosha is a minimal global state management solution tailored for modern React ap
      set(state => ({ count: state.count + 1 }));
      ```
 
-4. **Direct Store Updates**
-
-   - Use `useKosha.set` to update the entire store directly:
-     ```tsx
-     useKosha.set({ count: 42, user: "John Doe" });
-     ```
-
-5. **Flexible Consumption**
+4. **Flexible Consumption**
 
    - Use the entire store or specific selectors as needed:
      ```tsx
      const { count, setCount } = useKosha();
      ```
 
-6. **Concurrent Rendering Ready**
+5. **Concurrent Rendering Ready**
    - Built on React’s `useSyncExternalStore`, ensuring compatibility with React 18+ features.
 
 ---
@@ -117,13 +110,79 @@ const Counter = () => {
 
 ### Direct Store Updates
 
-You can also use `useKosha.set` to update the entire store directly:
+In the latest version, the `.set` method has been removed from the hook. This means `useKosha.set` is no longer available by default.
 
-```tsx
-useKosha.set({ count: 42, user: "John Doe" });
+To use the `set` method, you must explicitly expose it within your store:
+
+```typescript
+import { create } from "kosha";
+
+const useKosha = create(set => ({
+  count: 0,
+  increment: () => set(state => ({ count: state.count + 1 })),
+  set, // <- Expose the set method to use it as a standard setter with full functionality
+}));
 ```
 
 ---
+
+This post provides a clear comparison between **Kosha** and **Zustand**, emphasizing Kosha's advantages in terms of size, performance, and flexibility. Here’s a brief recap and refinement:
+
+---
+
+### **Why Choose Kosha Over Zustand?**
+
+1. **Lighter & Faster**
+
+   - Kosha’s **minzipped size** is only **420 bytes**, making it ideal for performance-critical projects.
+   - Zustand is heavier, which could impact apps where every kilobyte counts.
+
+2. **Optimized Selectors**
+
+   - Kosha ensures **zero unnecessary re-renders** out of the box—components only re-render when the selector output changes.  
+     Example:
+
+     ```tsx
+     const count = useKosha(state => state.count);
+     ```
+
+     or
+
+     ```tsx
+     const fullName = useKosha(state => state.firstName + state.lastName);
+     ```
+
+   - Zustand requires explicit optimizations and may still trigger redundant re-renders. See the [Zustand docs](https://github.com/pmndrs/zustand/blob/37e1e3f193a5e5dec6fbd0f07514aec59a187e01/docs/guides/prevent-rerenders-with-use-shallow.md).
+
+3. **Built-in Partial Updates**
+
+   - Kosha simplifies **state updates** with clean syntax, no need to spread the previous state manually:
+
+     ```tsx
+     set({ count }); // Update 'count' only
+
+     set(state => ({ count: state.count + 1 })); // Increment 'count'
+     ```
+
+   - Zustand also supports partial updates in newer versions, but Kosha delivers this efficiency in a smaller footprint.
+
+4. **Flexible API**
+   - Kosha allows consuming the entire store when needed:
+     ```tsx
+     const { count, setCount } = useKosha();
+     ```
+
+---
+
+### When to Use Kosha?
+
+Choose **Kosha** if your project prioritizes:
+
+- Minimal bundle size.
+- Performance and selector efficiency.
+- Modern state management with a lean API.
+
+For larger projects or those already using Zustand’s ecosystem, Kosha offers a streamlined alternative.
 
 ## 📌 FAQ
 
