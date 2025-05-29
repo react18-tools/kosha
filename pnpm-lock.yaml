@@ -175,7 +175,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       tsup:
         specifier: ^8.5.0
-        version: 8.5.0(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0)
+        version: 8.5.0(postcss@8.5.4)(typescript@5.8.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -301,7 +301,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       tsup:
         specifier: ^8.5.0
-        version: 8.5.0(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0)
+        version: 8.5.0(postcss@8.5.4)(typescript@5.8.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -1592,8 +1592,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  browserslist@4.24.5:
-    resolution: {integrity: sha512-FDToo4Wo82hIdgc1CQ+NQD0hEhmpPjrZ3hiUgwgOG6IuTdlpr8jdjyG24P6cNP1yJpTLzS5OcGgSw0xmDU1/Tw==}
+  browserslist@4.25.0:
+    resolution: {integrity: sha512-PJ8gYKeS5e/whHBh8xrwYK+dAvEj7JXtz6uTucnMRB8OiGTsKccFekoRrjajPBHV8oOY+2tI4uxeceSimKwMFA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -1630,8 +1630,8 @@ packages:
   caniuse-lite@1.0.30001690:
     resolution: {integrity: sha512-5ExiE3qQN6oF8Clf8ifIDcMRCRE/dMGcETG/XGMD8/XiXm6HXQgQTh1yZYLXXpSOsEUlJm1Xr7kGULZTuGtP/w==}
 
-  caniuse-lite@1.0.30001718:
-    resolution: {integrity: sha512-AflseV1ahcSunK53NfEs9gFWgOEmzr0f+kaMFA4xiLZlr9Hzt7HxcSpIFcnNCUkz6R6dWKa54rUz3HUmI3nVcw==}
+  caniuse-lite@1.0.30001720:
+    resolution: {integrity: sha512-Ec/2yV2nNPwb4DnTANEV99ZWwm3ZWfdlfkQbWSDDt+PsXEVYwlhPH8tdMaPunYTKKmz7AnHi2oNEi1GcmKCD8g==}
 
   chai@5.2.0:
     resolution: {integrity: sha512-mCuXncKXk5iCLhfhwTc0izo0gtEmpz5CtG2y8GiOINBlMVS6v8TMRc5TaLWKS6692m9+dVVfzgeVxR5UxWHTYw==}
@@ -1796,8 +1796,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.160:
-    resolution: {integrity: sha512-8yQk54/CoCQT8GX3zuxqPBwMAQuIr6dWI/qO8Aah/JAZwB5XmCbEElsqb1n4pzc2vpkTdfc/kbyNPJOjswfbgg==}
+  electron-to-chromium@1.5.161:
+    resolution: {integrity: sha512-hwtetwfKNZo/UlwHIVBlKZVdy7o8bIZxxKs0Mv/ROPiQQQmDgdm5a+KvKtBsxM8ZjFzTaCeLoodZ8jiBE3o9rA==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -2779,8 +2779,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.3:
-    resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
+  postcss@8.5.4:
+    resolution: {integrity: sha512-QSa9EBe+uwlGTFmHsPKokv3B/oEMQZxfqW0QqNCyhpa6mB1afzulwn8hihglqAb2pOw+BJgNlmXQ8la2VeHB7w==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -3615,7 +3615,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.27.3
       '@babel/helper-validator-option': 7.27.1
-      browserslist: 4.24.5
+      browserslist: 4.25.0
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -4768,14 +4768,14 @@ snapshots:
 
   async-function@1.0.0: {}
 
-  autoprefixer@10.4.21(postcss@8.5.3):
+  autoprefixer@10.4.21(postcss@8.5.4):
     dependencies:
-      browserslist: 4.24.5
-      caniuse-lite: 1.0.30001718
+      browserslist: 4.25.0
+      caniuse-lite: 1.0.30001720
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
-      postcss: 8.5.3
+      postcss: 8.5.4
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -4801,12 +4801,12 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  browserslist@4.24.5:
+  browserslist@4.25.0:
     dependencies:
-      caniuse-lite: 1.0.30001718
-      electron-to-chromium: 1.5.160
+      caniuse-lite: 1.0.30001720
+      electron-to-chromium: 1.5.161
       node-releases: 2.0.19
-      update-browserslist-db: 1.1.3(browserslist@4.24.5)
+      update-browserslist-db: 1.1.3(browserslist@4.25.0)
 
   bundle-require@5.1.0(esbuild@0.25.5):
     dependencies:
@@ -4840,7 +4840,7 @@ snapshots:
 
   caniuse-lite@1.0.30001690: {}
 
-  caniuse-lite@1.0.30001718: {}
+  caniuse-lite@1.0.30001720: {}
 
   chai@5.2.0:
     dependencies:
@@ -4990,7 +4990,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.160: {}
+  electron-to-chromium@1.5.161: {}
 
   emoji-regex@8.0.0: {}
 
@@ -5110,9 +5110,9 @@ snapshots:
 
   esbuild-plugin-react18-css@0.0.4:
     dependencies:
-      autoprefixer: 10.4.21(postcss@8.5.3)
-      postcss: 8.5.3
-      postcss-modules: 6.0.1(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.4)
+      postcss: 8.5.4
+      postcss-modules: 6.0.1(postcss@8.5.4)
       sass: 1.89.0
 
   esbuild-plugin-react18@0.2.6: {}
@@ -5499,9 +5499,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.5.3):
+  icss-utils@5.1.0(postcss@8.5.4):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
 
   ignore@5.3.2: {}
 
@@ -5876,7 +5876,7 @@ snapshots:
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001718
+      caniuse-lite: 1.0.30001720
       postcss: 8.4.31
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -6053,44 +6053,44 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-load-config@6.0.1(postcss@8.5.3)(yaml@2.7.0):
+  postcss-load-config@6.0.1(postcss@8.5.4)(yaml@2.7.0):
     dependencies:
       lilconfig: 3.1.3
     optionalDependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
       yaml: 2.7.0
 
-  postcss-modules-extract-imports@3.1.0(postcss@8.5.3):
+  postcss-modules-extract-imports@3.1.0(postcss@8.5.4):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
 
-  postcss-modules-local-by-default@4.2.0(postcss@8.5.3):
+  postcss-modules-local-by-default@4.2.0(postcss@8.5.4):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.3)
-      postcss: 8.5.3
+      icss-utils: 5.1.0(postcss@8.5.4)
+      postcss: 8.5.4
       postcss-selector-parser: 7.1.0
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.2.1(postcss@8.5.3):
+  postcss-modules-scope@3.2.1(postcss@8.5.4):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
       postcss-selector-parser: 7.1.0
 
-  postcss-modules-values@4.0.0(postcss@8.5.3):
+  postcss-modules-values@4.0.0(postcss@8.5.4):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.3)
-      postcss: 8.5.3
+      icss-utils: 5.1.0(postcss@8.5.4)
+      postcss: 8.5.4
 
-  postcss-modules@6.0.1(postcss@8.5.3):
+  postcss-modules@6.0.1(postcss@8.5.4):
     dependencies:
       generic-names: 4.0.0
-      icss-utils: 5.1.0(postcss@8.5.3)
+      icss-utils: 5.1.0(postcss@8.5.4)
       lodash.camelcase: 4.3.0
-      postcss: 8.5.3
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.3)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.3)
-      postcss-modules-scope: 3.2.1(postcss@8.5.3)
-      postcss-modules-values: 4.0.0(postcss@8.5.3)
+      postcss: 8.5.4
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.4)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.4)
+      postcss-modules-scope: 3.2.1(postcss@8.5.4)
+      postcss-modules-values: 4.0.0(postcss@8.5.4)
       string-hash: 1.1.3
 
   postcss-selector-parser@7.1.0:
@@ -6106,7 +6106,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.3:
+  postcss@8.5.4:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
@@ -6645,7 +6645,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsup@8.5.0(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0):
+  tsup@8.5.0(postcss@8.5.4)(typescript@5.8.3)(yaml@2.7.0):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.25.5)
       cac: 6.7.14
@@ -6656,7 +6656,7 @@ snapshots:
       fix-dts-default-cjs-exports: 1.0.1
       joycon: 3.1.1
       picocolors: 1.1.1
-      postcss-load-config: 6.0.1(postcss@8.5.3)(yaml@2.7.0)
+      postcss-load-config: 6.0.1(postcss@8.5.4)(yaml@2.7.0)
       resolve-from: 5.0.0
       rollup: 4.41.1
       source-map: 0.8.0-beta.0
@@ -6665,7 +6665,7 @@ snapshots:
       tinyglobby: 0.2.14
       tree-kill: 1.2.2
     optionalDependencies:
-      postcss: 8.5.3
+      postcss: 8.5.4
       typescript: 5.8.3
     transitivePeerDependencies:
       - jiti
@@ -6762,9 +6762,9 @@ snapshots:
 
   universalify@0.1.2: {}
 
-  update-browserslist-db@1.1.3(browserslist@4.24.5):
+  update-browserslist-db@1.1.3(browserslist@4.25.0):
     dependencies:
-      browserslist: 4.24.5
+      browserslist: 4.25.0
       escalade: 3.2.0
       picocolors: 1.1.1
 
@@ -6815,7 +6815,7 @@ snapshots:
       esbuild: 0.25.5
       fdir: 6.4.5(picomatch@4.0.2)
       picomatch: 4.0.2
-      postcss: 8.5.3
+      postcss: 8.5.4
       rollup: 4.41.1
       tinyglobby: 0.2.14
     optionalDependencies:
