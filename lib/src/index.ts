@@ -72,5 +72,7 @@ export const create = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
     );
   };
 
+  useHook.getState = get;
+
   return useHook;
 };
