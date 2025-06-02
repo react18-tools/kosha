@@ -1,50 +1,65 @@
 # Kosha <img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 40px"/>
 
-[![Test Status](https://github.com/react18-tools/kosha/actions/workflows/test.yml/badge.svg)](https://github.com/react18-tools/kosha/actions/workflows/test.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/55202c8c7bee2d7a95bd/maintainability)](https://codeclimate.com/github/react18-tools/kosha/maintainability) [![Code Coverage](https://codecov.io/gh/react18-tools/kosha/graph/badge.svg)](https://codecov.io/gh/react18-tools/kosha) [![Version](https://img.shields.io/npm/v/kosha.svg?colorB=green)](https://www.npmjs.com/package/kosha) [![Downloads](https://img.jsdelivr.com/img.shields.io/npm/d18m/kosha.svg)](https://www.npmjs.com/package/kosha) ![Bundle Size](https://img.shields.io/bundlephobia/minzip/kosha) [![Gitpod Ready](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
+[![Test Status](https://github.com/react18-tools/kosha/actions/workflows/test.yml/badge.svg)](https://github.com/react18-tools/kosha/actions/workflows/test.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/55202c8c7bee2d7a95bd/maintainability)](https://codeclimate.com/github/react18-tools/kosha/maintainability)
+[![Code Coverage](https://codecov.io/gh/react18-tools/kosha/graph/badge.svg)](https://codecov.io/gh/react18-tools/kosha)
+[![Version](https://img.shields.io/npm/v/kosha.svg?colorB=green)](https://www.npmjs.com/package/kosha)
+[![Downloads](https://img.jsdelivr.com/img.shields.io/npm/d18m/kosha.svg)](https://www.npmjs.com/package/kosha)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/kosha)
+[![Gitpod Ready](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
 
-### **A Modern, Lightweight, and Powerful State Management Library for React**
+### **A Modern, Lightweight, and High-Performance State Management Library for React**
 
-Kosha is a minimal global state management solution tailored for modern React applications. At only **420 bytes** (minzipped), it provides exceptional performance and simplicity for developers focused on clean and efficient code.
+**Kosha** is a production-ready, minimalistic global state management solution for modern React applications. Weighing in at just **~450 bytes minzipped**, it’s built for developers who care about performance, clean APIs, and full React 18+ compatibility.
 
 ---
 
-## 🚀 Key Features
+## 📚 Table of Contents
+
+- [🚀 Features](#-features)
+- [📦 Installation](#-installation)
+- [🧑‍💻 Usage](#-usage)
+- [⚖️ Zustand Comparison](#️-why-choose-kosha-over-zustand)
+- [📁 Examples](#-examples)
+- [❓ FAQ](#-faq)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+
+---
+
+## 🚀 Features
 
 1. **Ultra-Lightweight**
+   - Minzipped size: ~**420–571 bytes**, making it ideal for performance-critical applications.
 
-   - Minzipped size: **571 bytes**, ideal for performance-critical projects.
-
-2. **Optimized Re-renders**
-
-   - Components only re-render when the selector output changes.
+2. **Zero Unnecessary Re-renders**
+   - Based on React’s `useSyncExternalStore`, Kosha ensures components only re-render when selected state changes.
    - Example:
      ```tsx
      const count = useKosha(state => state.count);
      ```
 
 3. **Partial State Updates**
-
-   - Update specific parts of the state easily without spreading:
+   - Update only what you need—no need to manually spread previous state:
      ```tsx
      set({ count });
      set(state => ({ count: state.count + 1 }));
      ```
 
-4. **Flexible Consumption**
-
-   - Use the entire store or specific selectors as needed:
+4. **Flexible Consumption API**
+   - Select specific fields or use the entire store:
      ```tsx
      const { count, setCount } = useKosha();
      ```
 
 5. **Concurrent Rendering Ready**
-   - Built on React’s `useSyncExternalStore`, ensuring compatibility with React 18+ features.
+   - Fully compatible with React 18+ and the concurrent features thanks to `useSyncExternalStore`.
 
 ---
 
-## ⭐ Installation
+## 📦 Installation
 
-Install Kosha using your preferred package manager:
+Install using your preferred package manager:
 
 ```bash
 pnpm add kosha
@@ -64,9 +79,9 @@ yarn add kosha
 
 ---
 
-## 📖 Usage
+## 🧑‍💻 Usage
 
-### Define a Store
+### 1. Create a Store
 
 ```tsx
 import { create } from "kosha";
@@ -77,7 +92,7 @@ const useKosha = create(set => ({
 }));
 ```
 
-### Consume Without a Selector
+### 2. Consume the Store (No Selector)
 
 ```tsx
 const Counter = () => {
@@ -92,7 +107,7 @@ const Counter = () => {
 };
 ```
 
-### Consume With a Selector
+### 3. Use Selectors
 
 ```tsx
 const Counter = () => {
@@ -108,105 +123,95 @@ const Counter = () => {
 };
 ```
 
-### Direct Store Updates
+### 4. Enable Direct Updates via `set`
 
-In the latest version, the `.set` method has been removed from the hook. This means `useKosha.set` is no longer available by default.
+Kosha no longer exposes `.set` by default. To update the state externally, expose `set` explicitly:
 
-To use the `set` method, you must explicitly expose it within your store:
-
-```typescript
+```ts
 import { create } from "kosha";
 
 const useKosha = create(set => ({
   count: 0,
   increment: () => set(state => ({ count: state.count + 1 })),
-  set, // <- Expose the set method to use it as a standard setter with full functionality
+  set, // Exposed manually
 }));
+```
+
+### 5. Update Outside React
+
+Update the store from anywhere (outside React) using `getState()`:
+
+```ts
+useKosha.getState().increment();
 ```
 
 ---
 
-This post provides a clear comparison between **Kosha** and **Zustand**, emphasizing Kosha's advantages in terms of size, performance, and flexibility. Here’s a brief recap and refinement:
+## ⚖️ Why Choose Kosha Over Zustand?
+
+Kosha offers a streamlined alternative for projects where **performance, simplicity**, and **minimal bundle size** matter most.
+
+| Feature                          | Kosha        | Zustand                                          |
+| -------------------------------- | ------------ | ------------------------------------------------ |
+| Size (minzipped)                 | \~420 bytes  | \~1.1–1.5 kB                                     |
+| Built-in Optimized Selectors     | ✅            | ⚠️ Needs shallow equality or manual optimization |
+| Partial Updates                  | ✅ (native)   | ✅                                                |
+| React 18+ `useSyncExternalStore` | ✅            | ✅                                                |
+| Learning Curve                   | Super simple | Simple                                           |
+
+**Example (Selector-Based Optimization in Kosha):**
+
+```tsx
+const fullName = useKosha(state => state.firstName + state.lastName);
+```
+
+Zustand may still trigger re-renders here unless carefully optimized. See [Zustand’s official docs](https://github.com/pmndrs/zustand/blob/main/docs/guides/prevent-rerenders-with-use-shallow.md) for details.
 
 ---
 
-### **Why Choose Kosha Over Zustand?**
+## 📁 Examples
 
-1. **Lighter & Faster**
-
-   - Kosha’s **minzipped size** is only **420 bytes**, making it ideal for performance-critical projects.
-   - Zustand is heavier, which could impact apps where every kilobyte counts.
-
-2. **Optimized Selectors**
-
-   - Kosha ensures **zero unnecessary re-renders** out of the box—components only re-render when the selector output changes.  
-     Example:
-
-     ```tsx
-     const count = useKosha(state => state.count);
-     ```
-
-     or
-
-     ```tsx
-     const fullName = useKosha(state => state.firstName + state.lastName);
-     ```
-
-   - Zustand requires explicit optimizations and may still trigger redundant re-renders. See the [Zustand docs](https://github.com/pmndrs/zustand/blob/37e1e3f193a5e5dec6fbd0f07514aec59a187e01/docs/guides/prevent-rerenders-with-use-shallow.md).
-
-3. **Built-in Partial Updates**
-
-   - Kosha simplifies **state updates** with clean syntax, no need to spread the previous state manually:
-
-     ```tsx
-     set({ count }); // Update 'count' only
-
-     set(state => ({ count: state.count + 1 })); // Increment 'count'
-     ```
-
-   - Zustand also supports partial updates in newer versions, but Kosha delivers this efficiency in a smaller footprint.
-
-4. **Flexible API**
-   - Kosha allows consuming the entire store when needed:
-     ```tsx
-     const { count, setCount } = useKosha();
-     ```
+You can find real-world usage examples inside the [`examples/`](https://github.com/react18-tools/kosha/tree/main/examples) directory of this repository.
 
 ---
 
-### When to Use Kosha?
+## ❓ FAQ
 
-Choose **Kosha** if your project prioritizes:
+### 1. Is Kosha production-ready?
 
-- Minimal bundle size.
-- Performance and selector efficiency.
-- Modern state management with a lean API.
+Yes! Kosha is stable, lightweight, and tested—suitable for production environments.
 
-For larger projects or those already using Zustand’s ecosystem, Kosha offers a streamlined alternative.
+### 2. Does Kosha support async actions?
 
-## 📌 FAQ
+Yes. Define asynchronous logic inside your store methods using `async/await` or promise chains.
 
-### 1. Does Kosha support async actions?
+### 3. What happens if I don't expose `set`?
 
-Yes! You can handle async actions with callbacks or promises directly within your store functions.
+You won’t be able to update the store from outside React context. Expose `set` explicitly if needed.
 
-### 2. How does Kosha ensure reactivity?
+### 4. Does Kosha support React Server Components?
 
-Kosha relies on React’s `useSyncExternalStore` for smooth integration with React’s latest features, including concurrent rendering.
+Kosha is designed for client-side state management. Server Component integration isn’t a current goal, but discussions are welcome.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome your contributions! If you encounter issues or have suggestions, please submit them on the [Kosha GitHub Repository](https://github.com/react18-tools/kosha).
+We welcome contributions from the community!
+
+* 💬 Start a [discussion](https://github.com/react18-tools/kosha/discussions)
+* 🐛 Report issues on the [Issue Tracker](https://github.com/react18-tools/kosha/issues)
+* 🧪 Submit PRs to improve or extend Kosha
+
+> Have an idea for a feature or roadmap suggestion? Open a discussion and help shape Kosha’s future.
 
 ---
 
 ## 📜 License
 
-Kosha is licensed under the **MPL-2.0** open-source license.
+Kosha is licensed under the **MPL-2.0** license.
 
-<img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 20px"/> Check out [our courses](https://mayank-chaudhari.vercel.app/courses) or [sponsor our work](https://github.com/sponsors/mayank1513).
+<img src="https://raw.githubusercontent.com/mayank1513/mayank1513/main/popper.png" style="height: 20px"/> Explore [our courses](https://mayank-chaudhari.vercel.app/courses) or [support development](https://github.com/sponsors/mayank1513).
 
 ---
 

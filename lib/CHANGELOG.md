@@ -1,5 +1,11 @@
 # kosha
 
+## 1.0.1
+
+### Patch Changes
+
+- e924612: Expose state to be used outside of the component context where hooks can not be used via getState function
+
 ## 1.0.0
 
 ### Major Changes
