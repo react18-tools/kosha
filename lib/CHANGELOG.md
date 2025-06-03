@@ -1,5 +1,11 @@
 # kosha
 
+## 1.0.2
+
+### Patch Changes
+
+- f63f14f: fix: default to new value if not cached
+
 ## 1.0.1
 
 ### Patch Changes
