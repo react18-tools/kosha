@@ -55,7 +55,7 @@ export const create = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
   const useHook = <U = T>(selectorFunc?: (state: T) => U): U => {
     const getSlice = () => {
       const newValue = selectorFunc!(get()!);
-      const obj = map.get(selectorFunc!);
+      const obj = map.get(selectorFunc!) ?? newValue;
       const finalValue = JSON.stringify(obj) === JSON.stringify(newValue) ? obj : newValue;
       map.set(selectorFunc!, finalValue);
       return finalValue as U;
