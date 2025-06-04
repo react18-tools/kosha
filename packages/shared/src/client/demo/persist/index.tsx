@@ -1,5 +1,5 @@
 import { create } from "kosha";
-import { persist } from "kosha/dist/middleware/persist";
+import { persist } from "kosha/middleware";
 
 interface CounterStore {
   count: number;
