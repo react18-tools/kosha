@@ -1,5 +1,11 @@
 # kosha
 
+## 1.0.4
+
+### Patch Changes
+
+- 35c3007: fix: update exports in package.json
+
 ## 1.0.3
 
 ### Patch Changes
