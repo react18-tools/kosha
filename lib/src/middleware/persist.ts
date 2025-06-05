@@ -31,7 +31,6 @@ export const persist =
       if (!persistedVal) return;
       const parsed = JSON.parse(persistedVal);
       if (options.version === undefined || options.version === parsed.version) {
-        console.log({ parsed });
         set(parsed.state);
       } else if (options.migrate) {
         const newState = options.migrate(parsed.state, parsed.version);
@@ -57,7 +56,6 @@ export const persist =
       set(newState);
     };
     const persistGetter = () => {
-      console.log("persist getter called --- ");
       if (!isSynced && typeof window !== "undefined") {
         onStorageChange();
         window.addEventListener("storage", onStorageChange);

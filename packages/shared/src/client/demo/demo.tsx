@@ -14,6 +14,14 @@ import headerCode from "./with-selectors/header.tsx?raw";
 import userDataCode from "./with-selectors/user-data.tsx?raw";
 import { PersistedCounter } from "./persist";
 import PersistedCounterCode from "./persist?raw";
+import { Compare } from "./compare";
+import compareCode from "./compare?raw";
+import compareStoreCode from "./compare/store?raw";
+
+const compareExCode = [
+  { filename: "compare.tsx", code: compareCode },
+  { filename: "store.ts", code: compareStoreCode },
+];
 
 const basicExCode = [
   { filename: "counter.tsx", code: counterCode },
@@ -36,6 +44,10 @@ export function Demo() {
       <div className={styles.demo}>
         <h2 className={styles.preview}>A tiny yet powerful store for modern react libraries.</h2>
         <img src="https://img.shields.io/bundlephobia/minzip/kosha" alt="NPM Bundle Size" />
+      </div>
+      <div className={styles.demo}>
+        <Compare />
+        <CodeDisplay code={compareExCode} />
       </div>
       <div className={styles.demo}>
         <BasicExample />
