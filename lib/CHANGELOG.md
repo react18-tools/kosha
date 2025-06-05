@@ -1,5 +1,11 @@
 # kosha
 
+## 1.0.5
+
+### Patch Changes
+
+- e0ccf0d: Remove console.logs from the persist plugin
+
 ## 1.0.4
 
 ### Patch Changes
