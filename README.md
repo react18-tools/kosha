@@ -193,10 +193,32 @@ While `Date` serializes fine, **avoid storing `Set` or `Map`** directly in globa
 
 ## 🚧 Known Limitations
 
-Kosha is intentionally minimal, and with that comes tradeoffs:
+Kosha is intentionally minimal by design — built to offer just what most React apps need, without bloat. That comes with a few tradeoffs:
 
-- **Selector Comparison via `JSON.stringify`**: Fast and reliable for most use cases, but not suitable for diffing non-serializable objects like `Set`, `Map`, or very large/deep objects. Having said that, it works excellently well with moderately large/deep objects
-- **Limited Built-in Plugins**: Middleware architecture is in place, but plugin ecosystem is early. You can write your own `devtools`, etc.
+### 🧠 Selector Comparison via `JSON.stringify`
+
+Kosha uses `JSON.stringify` internally to compare selector outputs for change detection. This works extremely well for the majority of cases — even with moderately large or deeply nested selectors.
+
+However, there are a few caveats:
+
+- **Avoid non-serializable values** in selectors like `Set`, `Map`, `WeakMap`, or circular objects.
+- **Very large selector outputs** may incur performance costs during diffing.
+
+> To clarify:
+> ✅ It’s perfectly fine to have a large store or global state.
+> ⚠️ What matters is the **output of your selector**. If you’re selecting a large slice like `state => ({ a: state.a, ..., z: state.z })`, it’s more efficient to either:
+>
+> - Access the store directly without a selector (`useKosha()`), or
+> - Extract only the minimal fields you actually need.
+
+### 🔌 Plugin Ecosystem Still Growing
+
+Kosha includes full support for custom middleware and already ships with a working [persist middleware](https://github.com/mayank1513/kosha/blob/main/lib/src/middleware/persist.ts). However:
+
+- Built-in plugins like `devtools` are not yet included.
+- A community-driven plugin ecosystem is still in its early stages.
+
+> That said, the underlying architecture is solid and middleware-ready — you're free to build and compose your own middleware as needed.
 
 ---
 
