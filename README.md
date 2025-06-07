@@ -189,6 +189,10 @@ Yes. Middleware support is built-in. A working persist middleware is included. Y
 
 While `Date` serializes fine, **avoid storing `Set` or `Map`** directly in global state, since Kosha uses `JSON.stringify` to diff selector outputs. Use arrays or plain objects instead for best results.
 
+### 5. Isn’t JSON.stringify unreliable because key order might change?
+
+No — in Kosha, you’re comparing outputs of the same selector function across renders. Since the order of keys in JavaScript objects is preserved in deterministic function outputs, JSON.stringify remains stable and reliable in this context.
+
 ---
 
 ## 🚧 Known Limitations
@@ -231,6 +235,24 @@ We welcome contributions!
 - 🧪 Submit PRs to improve or extend Kosha
 
 Got an idea for a middleware plugin or improvement? We'd love to collaborate.
+
+---
+
+## 🧠 Internals & Caveats
+
+### 🔍 Why use `JSON.stringify` for selector comparison?
+
+Kosha compares previous and next selector outputs using `JSON.stringify` to prevent unnecessary re-renders. This approach has several benefits:
+
+- It's **fast** and works for most serializable primitives and plain objects.
+- It ensures **deep comparison** out-of-the-box without manual equality functions.
+
+### ⚠️ What about key order in objects?
+
+This is a common concern, but not an issue in Kosha:
+
+> Kosha always compares results of the **same selector function**, so the key order is preserved unless your selector behaves non-deterministically (e.g., relies on `Object.keys()` or mutation).
+> As long as your selector returns a consistent structure, `JSON.stringify` comparison will be reliable.
 
 ---
 

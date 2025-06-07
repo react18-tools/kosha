@@ -12,7 +12,7 @@ const useKosha = create<CounterStore>(set => ({
 
 /** Counter Controller */
 export const CounterController = () => {
-  const { count, setCount } = useKosha();
+  const [count, setCount] = useKosha(({ count, setCount }) => [count, setCount]);
   return <input type="number" value={count} onChange={e => setCount(Number(e.target.value))} />;
 };
 

@@ -21,7 +21,13 @@ export type StoreCreator<T extends BaseType> = (
 
 export type Middleware<T extends BaseType> = (storeCreator: StoreCreator<T>) => StoreCreator<T>;
 
-export const create = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
+export const create: <T extends BaseType>(
+  storeCreator: StoreCreator<T>,
+) => {
+  (): T;
+  <U>(selectorFunc: (state: T) => U): U;
+  getState: () => T | null;
+} = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
   const listeners = new Set<ListenerWithSelector<T, unknown>>();
   const stateRef: { k: T | null } = { k: null };
   let get = () => stateRef.k;
@@ -45,13 +51,13 @@ export const create = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
   stateRef.k = rest;
   get = __get ?? get;
 
+  const map = new Map<(state: T) => unknown, unknown>();
   /**
    * A React hook to access the store's state or derived slices of it.
    * @param {(state: T) => U} [selectorFunc]
    * A function to extract a slice of the state for optimization.
    * @returns {U | T} The selected slice or the entire state.
    */
-  const map = new Map<(state: T) => unknown, unknown>();
   const useHook = <U = T>(selectorFunc?: (state: T) => U): U => {
     const getSlice = () => {
       const newValue = selectorFunc!(get()!);
