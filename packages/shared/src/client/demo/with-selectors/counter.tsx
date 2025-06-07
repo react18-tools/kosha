@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useMyKosha } from "./store";
 
 export function Counter() {
-  const [count, setCount] = useMyKosha(state => [state.count, state.setCount] as const);
+  const [count, setCount] = useMyKosha(state => [state.count, state.setCount]);
   const renderCount = useRef(0);
   renderCount.current++;
   return (

@@ -43,7 +43,7 @@ const P1ExtractAsObj = ({ type }: StoreTypeProps) => {
 };
 
 const P1ExtractAsArray = ({ type }: StoreTypeProps) => {
-  const [p1, setP1] = getStore(type)(({ p1, setP1 }) => [p1, setP1] as const);
+  const [p1, setP1] = getStore(type)(({ p1, setP1 }) => [p1, setP1]);
   return <P1 {...{ p1, setP1 }} />;
 };
 
@@ -59,7 +59,7 @@ const P2ExtractAsObj = ({ type }: StoreTypeProps) => {
 };
 
 const P2ExtractAsArray = ({ type }: StoreTypeProps) => {
-  const [p2, setP2] = getStore(type)(({ p2, setP2 }) => [p2, setP2] as const);
+  const [p2, setP2] = getStore(type)(({ p2, setP2 }) => [p2, setP2]);
   return <P2 {...{ p2, setP2 }} />;
 };
 
@@ -79,7 +79,7 @@ export const Compare = () => (
       <P2ExtractAsObj type="kosha" />
       <hr />
       <h4>Extract as Array</h4>
-      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2] as const)`}</code>
+      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2] )`}</code>
       <P1ExtractAsArray type="kosha" />
       <P2ExtractAsArray type="kosha" />
       <hr />
@@ -100,7 +100,7 @@ export const Compare = () => (
       </ErrorBoundary>
       <hr />
       <h4>Extract as Array</h4>
-      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2] as const)`}</code>
+      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2] )`}</code>
       <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
         <P1ExtractAsArray type="zustand" />
       </ErrorBoundary>
