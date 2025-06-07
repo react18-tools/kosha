@@ -1,5 +1,11 @@
 # kosha
 
+## 1.1.1
+
+### Patch Changes
+
+- 183299f: Fix setter types
+
 ## 1.1.0
 
 ### Minor Changes
