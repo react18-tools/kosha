@@ -1,4 +1,4 @@
-import { BaseType, Middleware, StateSetterArgType } from "..";
+import { BaseType, Middleware, StateSetter, StateSetterArgType } from "..";
 
 export interface PersistOptions<S> {
   /** Storage Key (must be unique) */
@@ -43,17 +43,18 @@ export const persist =
         }
       }
     };
-    const persistSetter = (newStatePartial: StateSetterArgType<T>) => {
+    const persistSetter: StateSetter<T> = (newStatePartial, replace) => {
       const newState = {
         ...get(),
         ...(newStatePartial instanceof Function ? newStatePartial(get()!) : newStatePartial),
-      };
+      } as T;
       const partial = options.partialize ? options.partialize(newState as T) : newState;
       localStorage.setItem(
         options.key,
         JSON.stringify({ state: partial, version: options.version }),
       );
-      set(newState);
+      if (replace) set(newState, replace);
+      else set(newState);
     };
     const persistGetter = () => {
       if (!isSynced && typeof window !== "undefined") {

@@ -12,10 +12,15 @@ import { useSyncExternalStore } from "react";
 
 export type BaseType = Omit<object, "__get">;
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
-export type StateSetterArgType<T> = ((newState: T) => Partial<T>) | Partial<T> | T;
+export type StateSetterArgType<T> = ((newState: T) => T) | T;
+
+export type StateSetter<T> = {
+  _(state: StateSetterArgType<Partial<T>>, replace?: false): void;
+  _(state: StateSetterArgType<T>, replace: true): void;
+}["_"];
 
 export type StoreCreator<T extends BaseType> = (
-  set: (state: StateSetterArgType<T>) => void,
+  set: StateSetter<T>,
   get: () => T | null,
 ) => T & { __get?: () => T | null };
 
@@ -27,14 +32,15 @@ export const create: <T extends BaseType>(
   (): T;
   <U>(selectorFunc: (state: T) => U): U;
   getState: () => T | null;
+  setState: StateSetter<T>;
 } = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
   const listeners = new Set<ListenerWithSelector<T, unknown>>();
   const stateRef: { k: T | null } = { k: null };
   let get = () => stateRef.k;
-  const set = (newState: StateSetterArgType<T>) => {
+  const set: StateSetter<T> = (newState, replace) => {
     const oldState = stateRef.k;
     const partial = newState instanceof Function ? newState(stateRef.k!) : newState;
-    stateRef.k = { ...stateRef.k!, ...partial };
+    stateRef.k = replace ? (partial as T) : { ...stateRef.k!, ...partial };
 
     listeners.forEach(
       ([listener, selectorFunc]) =>
@@ -79,6 +85,7 @@ export const create: <T extends BaseType>(
   };
 
   useHook.getState = get;
+  useHook.setState = set;
 
   return useHook;
 };
