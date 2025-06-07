@@ -238,6 +238,36 @@ Got an idea for a middleware plugin or improvement? We'd love to collaborate.
 
 ---
 
+## 🧪 Testing and Mocking
+
+Kosha exposes setState, allowing you to inject test data directly.
+Resettable Test Stores
+
+For advanced test isolation, you can register and reset stores:
+
+```tsx
+import { act } from "react-dom/test-utils";
+import { afterEach } from "jest";
+import { create } from "kosha";
+import type { StoreCreator, BaseType } from "kosha";
+
+export const storeResetFns = new Set<() => void>();
+
+// use createTestStore for mocking up store in your test cases
+export const createTestStore = <T extends BaseType>(creator: StoreCreator<T>) => {
+  const useStore = create(creator);
+  const initial = useStore.getState();
+  storeResetFns.add(() => useStore.setState(initial!, true));
+  return useStore;
+};
+
+afterEach(() => {
+  act(() => storeResetFns.forEach(resetFn => resetFn()));
+});
+```
+
+Use this pattern to reset stores automatically before each test.
+
 ## 🧠 Internals & Caveats
 
 ### 🔍 Why use `JSON.stringify` for selector comparison?
