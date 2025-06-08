@@ -1,5 +1,11 @@
 # kosha
 
+## 1.1.2
+
+### Patch Changes
+
+- c549be2: Simplify and enforce immutability to ensure state is not modified in the function passed to set.
+
 ## 1.1.1
 
 ### Patch Changes
