@@ -23,6 +23,7 @@ export const PersistedCounter = () => {
   const { count, localCount, setCount, setLocalCount } = usePersistedKosha();
   return (
     <div>
+      <h2>Example using persist middleware</h2>
       <div>Count: {count}</div>
       <button onClick={() => setCount(count + 1)}>Increment</button>
       <div>Local Count: {localCount}</div>

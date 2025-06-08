@@ -17,6 +17,8 @@ import PersistedCounterCode from "./persist?raw";
 import { Compare } from "./compare";
 import compareCode from "./compare?raw";
 import compareStoreCode from "./compare/store?raw";
+import { CounterWithImmer } from "./immer";
+import CounterWithImmerCode from "./immer?raw";
 
 const compareExCode = [
   { filename: "compare.tsx", code: compareCode },
@@ -60,6 +62,10 @@ export function Demo() {
       <div className={styles.demo}>
         <PersistedCounter />
         <CodeDisplay code={[{ filename: "index.tsx", code: PersistedCounterCode }]} />
+      </div>
+      <div className={styles.demo}>
+        <CounterWithImmer />
+        <CodeDisplay code={[{ filename: "index.tsx", code: CounterWithImmerCode }]} />
       </div>
     </>
   );

@@ -18,14 +18,23 @@ export type Immutable<T> = {
     : T[K];
 };
 
+export type Mutable<T> = {
+  -readonly [K in keyof T]: T[K] extends object
+    ? T[K] extends Function
+      ? T[K]
+      : Mutable<T[K]>
+    : T[K];
+};
+
 export type BaseType = Omit<object, "__get">;
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
+
 export type StateSetterArgType<T> = ((newState: Immutable<T>) => T | Partial<T>) | Partial<T> | T;
 
 export type StateSetter<T> = {
-  _(state: StateSetterArgType<T>, replace?: false): void;
-  _(state: ((newState: Immutable<T>) => T) | T, replace: true): void;
-}["_"];
+  (state: StateSetterArgType<T>, replace?: false): void;
+  (state: ((newState: Immutable<T>) => T) | T, replace: true): void;
+};
 
 export type StoreCreator<T extends BaseType> = (
   set: StateSetter<T>,

@@ -1,4 +1,4 @@
-import { create as createKosha } from "kosha";
+import { create as createKosha, StoreCreator } from "kosha";
 import { create as createZustand } from "zustand";
 
 type SetStateAction<T> = (state: T | ((s: T) => T)) => void;
@@ -27,9 +27,7 @@ const defaultState: ICompareStore = {
   a: [],
 };
 
-const storeCreator = (
-  set: SetStateAction<Partial<ICompareStore & ICompareStoreActions>>,
-): ICompareStore & ICompareStoreActions => ({
+const storeCreator: StoreCreator<ICompareStore & ICompareStoreActions> = set => ({
   ...defaultState,
   setP1: p1 => set({ p1 }),
   setP2: p2 => set({ p2 }),

@@ -14,7 +14,7 @@ const P1 = ({ p1, setP1 }: Pick<ComponentProps, "p1" | "setP1">) => {
   renderCountRef.current++;
   return (
     <div>
-      <p className="display">
+      <p>
         p1:
         <button onClick={() => setP1(crypto.randomUUID())}>Update</button>
         {p1.slice(25)} | renderCount is {renderCountRef.current}
@@ -28,7 +28,7 @@ const P2 = ({ p2, setP2 }: Pick<ComponentProps, "p2" | "setP2">) => {
   renderCountRef.current++;
   return (
     <div>
-      <p className="display">
+      <p>
         p2:
         <button onClick={() => setP2(Math.random())}>Update</button>
         {p2.toFixed(6)} | renderCount is {renderCountRef.current}
@@ -79,7 +79,7 @@ export const Compare = () => (
       <P2ExtractAsObj type="kosha" />
       <hr />
       <h4>Extract as Array</h4>
-      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2] )`}</code>
+      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2])`}</code>
       <P1ExtractAsArray type="kosha" />
       <P2ExtractAsArray type="kosha" />
       <hr />
@@ -92,19 +92,39 @@ export const Compare = () => (
       <h2>Zustand</h2>
       <h4>Extract as Object</h4>
       <code>{`const { p2, setP2 } = myStore(({ p2, setP2 }) => ({ p2, setP2 }))`}</code>
-      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+      <ErrorBoundary
+        fallback={
+          <div>
+            <p>⚠️Something went wrong</p>
+          </div>
+        }>
         <P1ExtractAsObj type="zustand" />
       </ErrorBoundary>
-      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+      <ErrorBoundary
+        fallback={
+          <div>
+            <p>⚠️Something went wrong</p>
+          </div>
+        }>
         <P2ExtractAsObj type="zustand" />
       </ErrorBoundary>
       <hr />
       <h4>Extract as Array</h4>
-      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2] )`}</code>
-      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+      <code>{`const [p2, setP2] = myStore(({ p2, setP2 }) => [p2, setP2])`}</code>
+      <ErrorBoundary
+        fallback={
+          <div>
+            <p>⚠️Something went wrong</p>
+          </div>
+        }>
         <P1ExtractAsArray type="zustand" />
       </ErrorBoundary>
-      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+      <ErrorBoundary
+        fallback={
+          <div>
+            <p>⚠️Something went wrong</p>
+          </div>
+        }>
         <P2ExtractAsArray type="zustand" />
       </ErrorBoundary>
       <hr />
