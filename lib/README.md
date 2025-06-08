@@ -26,6 +26,8 @@ Live demo: [https://kosha-six.vercel.app](https://kosha-six.vercel.app)
 - [❓ FAQ](#-faq)
 - [🚧 Known Limitations](#-known-limitations)
 - [🤝 Contributing](#-contributing)
+- [🧪 Testing and Mocking](#-testing-and-mocking)
+- [🧠 Internals & Caveats](#-internals--caveats)
 - [📜 License](#-license)
 
 ---
