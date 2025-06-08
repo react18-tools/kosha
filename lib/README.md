@@ -8,7 +8,7 @@
 ![Bundle Size](https://img.shields.io/bundlephobia/minzip/kosha)
 [![Gitpod Ready](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
 
-### **A Modern, Lightweight, and High-Performance State Management Library for React**
+> **_⚡Kosha_**: **A Modern, Lightweight, and High-Performance State Management Library for React**
 
 **Kosha** is a production-ready, minimalistic global state management solution for modern React applications. At just **\~450 bytes minzipped**, it's optimized for performance-critical applications, full React 18+ support, and clean developer ergonomics.
 
@@ -21,6 +21,7 @@ Live demo: [https://kosha-six.vercel.app](https://kosha-six.vercel.app)
 - [🚀 Features](#-features)
 - [📦 Installation](#-installation)
 - [🧑‍💻 Usage](#-usage)
+- [🧰 Immer Middleware](#-immer-middleware)
 - [⚖️ Zustand Comparison](#️-why-choose-kosha-over-zustand)
 - [📁 Examples](#-examples)
 - [❓ FAQ](#-faq)
@@ -125,21 +126,87 @@ const increment = useKosha(state => state.increment);
 const { count, increment } = useKosha(({ count, increment }) => ({ count, increment }));
 ```
 
-### 4. Enable External Set Access (Optional)
-
-```tsx
-const useKosha = create(set => ({
-  count: 0,
-  increment: () => set(state => ({ count: state.count + 1 })),
-  set, // manually exposed
-}));
-```
-
-### 5. Update Outside React
+### 4. Update Outside React
 
 ```ts
 useKosha.getState().increment();
 ```
+
+## ⚠️ Avoid In-Place Mutations
+
+Kosha detects changes using shallow comparison (`JSON.stringify`) between the **previous and new result of the selector**.
+If you mutate state **in-place** and return the same object reference, **listeners will not be triggered**, and your UI will not re-render — even though the state has technically changed.
+
+### 🔴 Problem Example
+
+```ts
+create(set => ({
+  todos: [],
+  addTodo: item =>
+    set(state => {
+      state.todos.push(item); // ❌ in-place mutation
+      return state; // same reference!
+    }),
+}));
+```
+
+### ✅ Correct Way – Return a New Object
+
+```ts
+create(set => ({
+  todos: [],
+  addTodo: item =>
+    set(state => ({
+      ...state,
+      todos: [...state.todos, item], // ✅ returns a new object
+    })),
+}));
+```
+
+### ✅ Even Better – Use Immer
+
+```ts
+import { produce } from "immer";
+
+create(set => ({
+  todos: [],
+  addTodo: item =>
+    set(
+      produce(state => {
+        state.todos.push(item);
+      }),
+    ),
+}));
+```
+
+> ℹ️ Kosha does not bundle `immer` by default, but you can use it safely with your own setup or use immer middleware.
+
+---
+
+## 🧰 Immer Middleware
+
+Kosha provides a convenient **immer middleware** to simplify immutable state updates by enabling you to write mutative logic inside the store setter. It internally applies `immer`'s `produce` function automatically.
+
+Example usage:
+
+```ts
+import { create } from "kosha";
+import { immer } from "kosha/middleware";
+
+const useKosha = create(
+  immer(set => ({
+    todos: [],
+    addTodo: (item: string) =>
+      set(state => {
+        state.todos.push(item); // safe mutable update with immer middleware
+      }),
+  })),
+);
+```
+
+This middleware allows you to write concise, mutable-looking update code while keeping the state immutable under the hood.
+
+You can combine `immer` middleware with other middlewares like `persist` for powerful state management.
 
 ---
 
@@ -187,11 +254,15 @@ const useStore = create(set => ({
 
 Yes. Middleware support is built-in. A working persist middleware is included. You can easily build your own or extend with logging, devtools, etc.
 
-### 4. Can I use it with `Set`, `Map`, or `Date` objects?
+### 4. My state updates, but components don’t re-render. Why?
+
+You might be mutating the existing state object **in-place** instead of returning a new one. Kosha relies on reference comparison (`JSON.stringify`) to detect changes. Always return a new object, or use libraries like **immer** or the **immer middleware** from `kosha/middleware` to handle immutable updates safely.
+
+### 5. Can I use it with `Set`, `Map`, or `Date` objects?
 
 While `Date` serializes fine, **avoid storing `Set` or `Map`** directly in global state, since Kosha uses `JSON.stringify` to diff selector outputs. Use arrays or plain objects instead for best results.
 
-### 5. Isn’t JSON.stringify unreliable because key order might change?
+### 6. Isn’t JSON.stringify unreliable because key order might change?
 
 No — in Kosha, you’re comparing outputs of the same selector function across renders. Since the order of keys in JavaScript objects is preserved in deterministic function outputs, JSON.stringify remains stable and reliable in this context.
 
