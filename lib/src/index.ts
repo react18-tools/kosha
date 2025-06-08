@@ -10,13 +10,21 @@
 
 import { useSyncExternalStore } from "react";
 
+export type Immutable<T> = {
+  readonly [K in keyof T]: T[K] extends object
+    ? T[K] extends Function
+      ? T[K]
+      : Immutable<T[K]>
+    : T[K];
+};
+
 export type BaseType = Omit<object, "__get">;
 type ListenerWithSelector<T, U> = [listener: () => void, selectorFunc?: (state: T) => U];
-export type StateSetterArgType<T> = ((newState: T) => T | Partial<T>) | Partial<T> | T;
+export type StateSetterArgType<T> = ((newState: Immutable<T>) => T | Partial<T>) | Partial<T> | T;
 
 export type StateSetter<T> = {
   _(state: StateSetterArgType<T>, replace?: false): void;
-  _(state: ((newState: T) => T) | T, replace: true): void;
+  _(state: ((newState: Immutable<T>) => T) | T, replace: true): void;
 }["_"];
 
 export type StoreCreator<T extends BaseType> = (
@@ -35,26 +43,25 @@ export const create: <T extends BaseType>(
   setState: StateSetter<T>;
 } = <T extends BaseType>(storeCreator: StoreCreator<T>) => {
   const listeners = new Set<ListenerWithSelector<T, unknown>>();
-  const stateRef: { k: T | null } = { k: null };
-  let get = () => stateRef.k;
+  let state: T | null = null;
+  let get = () => state;
   const set: StateSetter<T> = (newState, replace) => {
-    const oldState = stateRef.k;
-    const partial = newState instanceof Function ? newState(stateRef.k!) : newState;
-    stateRef.k = replace ? (partial as T) : { ...stateRef.k!, ...partial };
+    const oldState = state;
+    const partial = newState instanceof Function ? newState(state!) : newState;
+    state = replace ? (partial as T) : { ...state!, ...partial };
 
     listeners.forEach(
       ([listener, selectorFunc]) =>
         (!selectorFunc ||
           (oldState &&
-            JSON.stringify(selectorFunc(stateRef.k!)) !==
-              JSON.stringify(selectorFunc(oldState)))) &&
+            JSON.stringify(selectorFunc(state!)) !== JSON.stringify(selectorFunc(oldState)))) &&
         listener(),
     );
   };
 
   const { __get, ...rest } = storeCreator(set, get);
   // @ts-expect-error -- will fix
-  stateRef.k = rest;
+  state = rest;
   get = __get ?? get;
 
   const map = new Map<(state: T) => unknown, unknown>();
