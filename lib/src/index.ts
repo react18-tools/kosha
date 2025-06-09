@@ -41,6 +41,11 @@ export type StoreCreator<T extends BaseType> = (
   get: () => T | null,
 ) => T & { __get?: () => T | null };
 
+export type SliceCreator<TStore extends BaseType, TSlice = Partial<TStore>> = (
+  set: StateSetter<TStore>,
+  get: () => TStore | null,
+) => TSlice;
+
 export type Middleware<T extends BaseType> = (storeCreator: StoreCreator<T>) => StoreCreator<T>;
 
 export const create: <T extends BaseType>(
