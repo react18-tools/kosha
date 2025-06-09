@@ -1,10 +1,12 @@
 .codeDisplay {
   padding: 10px;
+  margin: 0 -10px;
   .hide {
     display: none;
   }
   summary {
     cursor: pointer;
+    padding: 0 15px;
   }
   &[open] {
     .show {
@@ -86,8 +88,10 @@
 }
 
 .preview {
-  padding: 0 30px;
-  padding-bottom: 30px;
+  padding: 0 15px;
+  .flex h2 {
+    margin-top: 0;
+  }
 }
 
 .center {

@@ -15,10 +15,10 @@ export function UserData() {
   };
   return (
     <div>
-      <h1>UserData</h1>
-      <small>renderCount = {renderCount.current}</small>
-      <p>Name: {user.name}</p>
-      <p>Age: {user.age}</p>
+      <h2>UserData</h2>
+      <p>
+        <small>renderCount = {renderCount.current}</small> | Name: {user.name} | Age: {user.age}
+      </p>
       <form onSubmit={onSubmit}>
         <input type="text" name="name" defaultValue={user.name} />
         <input type="number" name="age" defaultValue={user.age} />

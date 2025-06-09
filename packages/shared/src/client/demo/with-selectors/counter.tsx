@@ -9,12 +9,14 @@ export function Counter() {
     <div>
       <h2>Counter With Selectors</h2>
       <p>Rerender is triggered by RGS only when count changes.</p>
-      <p>Count: {count}</p>
-      <button data-testid="increment-btn" onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
       <p data-testid="counter1-display">Render Count: {renderCount.current}</p>
+      <p>
+        Count: {count}
+        <button data-testid="increment-btn" onClick={() => setCount(count + 1)}>
+          Increment
+        </button>
+        <button onClick={() => setCount(count - 1)}>Decrement</button>
+      </p>
     </div>
   );
 }

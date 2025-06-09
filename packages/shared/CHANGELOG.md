@@ -1,5 +1,12 @@
 # @repo/shared
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [fab33c4]
+  - kosha@1.2.1
+
 ## 0.0.12
 
 ### Patch Changes

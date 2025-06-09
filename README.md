@@ -69,7 +69,7 @@ Live demo: [https://kosha-six.vercel.app](https://kosha-six.vercel.app)
 6. **Middleware Architecture (BYO Middleware)**
 
    - Middleware support is built-in. While Kosha doesn’t yet include a plugin ecosystem like Zustand, you can define and compose custom middlewares easily.
-   - Includes working [persist middleware](https://github.com/mayank1513/kosha/blob/main/lib/src/middleware/persist.ts) example out-of-the-box
+   - Includes working [persist middleware](https://github.com/mayank1513/kosha/blob/main/lib/src/middleware/persist.ts) and [immer middleware](https://github.com/mayank1513/kosha/blob/main/lib/src/middleware/immer.ts) example out-of-the-box
 
 ---
 
@@ -207,6 +207,80 @@ const useKosha = create(
 This middleware allows you to write concise, mutable-looking update code while keeping the state immutable under the hood.
 
 You can combine `immer` middleware with other middlewares like `persist` for powerful state management.
+
+---
+
+### 🧩 Modular Slice Composition
+
+Kosha supports Zustand-style **slice composition** via the `SliceCreator` utility type. This lets you create modular, typed slices and combine them cleanly.
+
+```ts
+export type SliceCreator<TStore extends BaseType, TSlice = Partial<TStore>> = (
+  set: StateSetter<TStore>,
+  get: () => TStore | null,
+) => TSlice;
+```
+
+#### Example
+
+```ts
+interface CounterSlice {
+  count: number;
+  setCount: (count: number) => void;
+}
+
+interface ThemeSlice {
+  theme: string;
+  setTheme: (theme: string) => void;
+}
+
+type StoreType = CounterSlice & ThemeSlice;
+
+const createCounterSlice: SliceCreator<StoreType, CounterSlice> = set => ({
+  count: 0,
+  setCount: count => set({ count }),
+});
+
+const createThemeSlice: SliceCreator<StoreType, ThemeSlice> = set => ({
+  theme: "light",
+  setTheme: theme => set({ theme }),
+});
+
+const useStore = create<StoreType>((...a) => ({
+  ...createCounterSlice(...a),
+  ...createThemeSlice(...a),
+}));
+```
+
+#### 🔍 Notes
+
+- You can use `get()` inside any slice to access the full store.
+- This gives more flexibility than Zustand’s default slice typing, where you’re limited to accessing only fields from your own slice.
+
+---
+
+### Slicing Pattern Support
+
+Kosha supports the **slicing pattern** commonly used in Zustand. You can compose your store by combining multiple slices:
+
+```ts
+const createUserSlice = set => ({
+  user: null,
+  setUser: user => set({ user }),
+});
+
+const createThemeSlice = set => ({
+  theme: "light",
+  toggleTheme: () => set(state => ({ theme: state.theme === "light" ? "dark" : "light" })),
+});
+
+const useStore = create(set => ({
+  ...createUserSlice(set),
+  ...createThemeSlice(set),
+}));
+```
+
+However, **Kosha does not yet provide strong TypeScript inference for slices** like Zustand’s `StoreApi`-based helpers. If you rely heavily on types for composing slices, you may need to manually define or merge slice types for better intellisense.
 
 ---
 

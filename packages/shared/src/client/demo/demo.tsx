@@ -19,6 +19,8 @@ import compareCode from "./compare?raw";
 import compareStoreCode from "./compare/store?raw";
 import { CounterWithImmer } from "./immer";
 import CounterWithImmerCode from "./immer?raw";
+import { SlicingTheStore } from "./slice";
+import SlicingTheStoreCode from "./slice?raw";
 
 const compareExCode = [
   { filename: "compare.tsx", code: compareCode },
@@ -52,20 +54,24 @@ export function Demo() {
         <CodeDisplay code={compareExCode} />
       </div>
       <div className={styles.demo}>
-        <BasicExample />
-        <CodeDisplay code={basicExCode} />
-      </div>
-      <div className={styles.demo}>
-        <WithSelector />
-        <CodeDisplay code={withSelectorExCode} />
-      </div>
-      <div className={styles.demo}>
         <PersistedCounter />
         <CodeDisplay code={[{ filename: "index.tsx", code: PersistedCounterCode }]} />
       </div>
       <div className={styles.demo}>
         <CounterWithImmer />
         <CodeDisplay code={[{ filename: "index.tsx", code: CounterWithImmerCode }]} />
+      </div>
+      <div className={styles.demo}>
+        <SlicingTheStore />
+        <CodeDisplay code={[{ filename: "index.tsx", code: SlicingTheStoreCode }]} />
+      </div>
+      <div className={styles.demo}>
+        <BasicExample />
+        <CodeDisplay code={basicExCode} />
+      </div>
+      <div className={styles.demo}>
+        <WithSelector />
+        <CodeDisplay code={withSelectorExCode} />
       </div>
     </>
   );

@@ -12,7 +12,6 @@ export default function Page(): ReactNode {
   return (
     <LandingPage title="Next.js Example">
       <Demo />
-      <MyButton />
     </LandingPage>
   );
 }

@@ -1,5 +1,6 @@
 import { create } from "kosha";
 import { persist } from "kosha/middleware";
+import styles from "../demo.module.scss";
 
 interface CounterStore {
   count: number;
@@ -22,12 +23,16 @@ const usePersistedKosha = create(
 export const PersistedCounter = () => {
   const { count, localCount, setCount, setLocalCount } = usePersistedKosha();
   return (
-    <div>
+    <div className={styles.preview}>
       <h2>Example using persist middleware</h2>
-      <div>Count: {count}</div>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <div>Local Count: {localCount}</div>
-      <button onClick={() => setLocalCount(localCount + 1)}>Increment</button>
+      <div>
+        Count: {count}
+        <button onClick={() => setCount(count + 1)}>Increment</button>
+      </div>
+      <div>
+        Local Count: {localCount}
+        <button onClick={() => setLocalCount(localCount + 1)}>Increment</button>
+      </div>
     </div>
   );
 };
