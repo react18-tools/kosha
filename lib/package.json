@@ -3,7 +3,7 @@
   "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
   "private": false,
   "version": "1.2.1",
-  "description": "A modern, lightweight, fast, and powerful global state management library for modern React.js projects. ",
+  "description": "⚡A modern, lightweight, fast, and powerful global state management library for modern React.js projects. ",
   "license": "MPL-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -65,10 +65,14 @@
   "peerDependencies": {
     "@types/react": ">=18",
     "next": ">=12.2",
-    "react": ">=18"
+    "react": ">=18",
+    "immer": ">=9.0.0"
   },
   "peerDependenciesMeta": {
     "next": {
+      "optional": true
+    },
+    "immer": {
       "optional": true
     }
   },
