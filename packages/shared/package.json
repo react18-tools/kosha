@@ -49,6 +49,7 @@
     "react-error-boundary": "^6.0.0",
     "react-live": "^4.1.8",
     "react18-loaders": "^1.1.4",
+    "typingfx": "^1.1.2",
     "zustand": "^5.0.5"
   }
 }
