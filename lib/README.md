@@ -212,16 +212,16 @@ You can combine `immer` middleware with other middlewares like `persist` for pow
 
 ### 🧩 Modular Slice Composition
 
-Kosha supports Zustand-style **slice composition** via the `SliceCreator` utility type. This lets you create modular, typed slices and combine them cleanly.
+For large or modular applications, it's often useful to split your store logic into isolated, reusable **slices**. Kosha supports this pattern with a simple and intuitive API that lets you compose your global store from smaller, focused units of state and behavior.
 
-```ts
-export type SliceCreator<TStore extends BaseType, TSlice = Partial<TStore>> = (
-  set: StateSetter<TStore>,
-  get: () => TStore | null,
-) => TSlice;
-```
+#### ✅ Why Use Slices?
 
-#### Example
+- Promote separation of concerns and cleaner organization.
+- Encapsulate logic around a specific domain (e.g., auth, UI, settings).
+- Enable independent testing and reusability of slices.
+- Access the full store inside each slice via `get()` — helpful when cross-slice coordination is needed.
+
+#### 📦 Example
 
 ```ts
 interface CounterSlice {
@@ -254,33 +254,16 @@ const useStore = create<StoreType>((...a) => ({
 
 #### 🔍 Notes
 
-- You can use `get()` inside any slice to access the full store.
-- This gives more flexibility than Zustand’s default slice typing, where you’re limited to accessing only fields from your own slice.
+- Each slice gets access to `set()` and `get()` functions.
+- Kosha allows full-store access within any slice, offering more flexibility than Zustand’s default slice typings, where type constraints may prevent access to the full state.
+- You can still strongly type your slices using generics — though we're continuing to improve TypeScript ergonomics for advanced use cases.
 
----
-
-### Slicing Pattern Support
-
-Kosha supports the **slicing pattern** commonly used in Zustand. You can compose your store by combining multiple slices:
-
-```ts
-const createUserSlice = set => ({
-  user: null,
-  setUser: user => set({ user }),
-});
-
-const createThemeSlice = set => ({
-  theme: "light",
-  toggleTheme: () => set(state => ({ theme: state.theme === "light" ? "dark" : "light" })),
-});
-
-const useStore = create(set => ({
-  ...createUserSlice(set),
-  ...createThemeSlice(set),
-}));
-```
-
-However, **Kosha does not yet provide strong TypeScript inference for slices** like Zustand’s `StoreApi`-based helpers. If you rely heavily on types for composing slices, you may need to manually define or merge slice types for better intellisense.
+| Feature / Concern             | **Kosha**                               | **Zustand**                                                      |
+| ----------------------------- | --------------------------------------- | ---------------------------------------------------------------- |
+| **Slice Access to Store**     | Full access to entire store via `get()` | Often restricted to own slice unless manually cast or configured |
+| **DX with TypeScript**        | More transparent                        | Auto inferred slice typing, but can obscure full-store access    |
+| **Slice Reusability**         | Easily extractable and composable       | Extractable, but full-store interop requires extra typing        |
+| **Cross-Slice Communication** | Direct via `get()`                      | Indirect or requires casting                                     |
 
 ---
 
@@ -385,35 +368,68 @@ Got an idea for a middleware plugin or improvement? We'd love to collaborate.
 
 ---
 
+Here’s a polished and clarified version of your **🧪 Testing and Mocking** section, optimized for **developer clarity**, **best SEO**, and practical DX. It clearly introduces the utilities, explains the pattern, and emphasizes what's already available via `utils/test`.
+
+---
+
 ## 🧪 Testing and Mocking
 
-Kosha exposes setState, allowing you to inject test data directly.
-Resettable Test Stores
+Kosha provides built-in support for test-friendly patterns that allow you to inject and reset store state during testing.
 
-For advanced test isolation, you can register and reset stores:
+### 🔧 Test Store Creation with Reset Support
 
-```tsx
-import { act } from "react-dom/test-utils";
-import { afterEach } from "jest";
-import { create } from "kosha";
-import type { StoreCreator, BaseType } from "kosha";
+For advanced test isolation, Kosha allows you to create test stores that can be reset to their initial state after each test.
+
+We recommend using the utilities exported from `utils/test`:
+
+```ts
+import { create, resetAllStores } from "kosha/utils/test";
+```
+
+<details>
+<summary>
+Here’s what they do:
+</summary>
+
+```ts
+// utils/test.ts
+import { create as actualCreate, BaseType, StoreCreator } from "kosha";
 
 export const storeResetFns = new Set<() => void>();
 
-// use createTestStore for mocking up store in your test cases
-export const createTestStore = <T extends BaseType>(creator: StoreCreator<T>) => {
-  const useStore = create(creator);
+export const create = <T extends BaseType>(creator: StoreCreator<T>) => {
+  const useStore = actualCreate(creator);
   const initial = useStore.getState();
   storeResetFns.add(() => useStore.setState(initial!, true));
   return useStore;
 };
 
+export const resetAllStores = () => storeResetFns.forEach(fn => fn());
+```
+
+</details>
+
+This utility enables the following DX pattern in your test setup:
+
+```ts
+import { act } from "react-dom/test-utils";
+import { afterEach } from "vitest"; // or jest
+import { resetAllStores } from "kosha/utils/test";
+
 afterEach(() => {
-  act(() => storeResetFns.forEach(resetFn => resetFn()));
+  act(() => resetAllStores());
 });
 ```
 
-Use this pattern to reset stores automatically before each test.
+### 🧪 Why It Matters
+
+- ✅ **Stable Testing**: Reset store state between tests to prevent bleed-through.
+- ✅ **Mock with Confidence**: Easily inject specific state values for targeted testing.
+- ✅ **No Manual Boilerplate**: Reuse `create()` from `utils/test` for clean and repeatable test setups.
+
+This approach ensures **clean state isolation** and **minimal friction** when writing tests for components relying on global state. It's also ideal for mocking feature flags, user sessions, themes, etc.
+
+---
 
 ## 🧠 Internals & Caveats
 
