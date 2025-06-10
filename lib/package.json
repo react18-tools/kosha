@@ -2,7 +2,7 @@
   "name": "kosha",
   "author": "Mayank Kumar Chaudhari <https://mayank-chaudhari.vercel.app>",
   "private": false,
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "⚡A modern, lightweight, fast, and powerful global state management library for modern React.js projects. ",
   "license": "MPL-2.0",
   "main": "./dist/index.js",
@@ -30,6 +30,16 @@
       "types": "./dist/middleware/index.d.ts",
       "import": "./dist/middleware/index.mjs",
       "require": "./dist/middleware/index.js"
+    },
+    "./utils/test": {
+      "types": "./dist/utils/test.d.ts",
+      "import": "./dist/utils/test.mjs",
+      "require": "./dist/utils/test.js"
+    },
+    "./dist/utils/test": {
+      "types": "./dist/utils/test.d.ts",
+      "import": "./dist/utils/test.mjs",
+      "require": "./dist/utils/test.js"
     }
   },
   "scripts": {

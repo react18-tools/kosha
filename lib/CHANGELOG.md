@@ -1,5 +1,15 @@
 # kosha
 
+## 1.3.0
+
+### Minor Changes
+
+- 45bc498: Add test utils
+
+### Patch Changes
+
+- 8519f91: Add immer as optional peer dependency
+
 ## 1.2.1
 
 ### Patch Changes
