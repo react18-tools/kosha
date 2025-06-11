@@ -104,6 +104,7 @@
     "useSyncExternalStore",
     "lightweight",
     "kosha",
+    "zustand",
     "frontend",
     "performance",
     "selectors",

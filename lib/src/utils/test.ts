@@ -1,4 +1,4 @@
-import { create as actualCreate, BaseType, StoreCreator } from "../..";
+import { create as actualCreate, BaseType, StoreCreator } from "..";
 
 export const storeResetFns = new Set<() => void>();
 
