@@ -13,11 +13,11 @@
     "preinstall": "node scripts/update-pm.js"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.4",
+    "@changesets/cli": "^2.29.5",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.30",
-    "prettier": "^3.5.3",
-    "turbo": "^2.5.4"
+    "@types/node": "^24.1.0",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.5"
   },
   "packageManager": "pnpm@10.11.1",
   "engines": {

@@ -1,5 +1,11 @@
 # kosha
 
+## 1.3.1
+
+### Patch Changes
+
+- e39433b: Remove next.js from peedDependency
+
 ## 1.3.0
 
 ### Minor Changes
@@ -15,7 +21,6 @@
 ### Patch Changes
 
 - fab33c4: - ✨ Support for Zustand-style **slice composition** via `SliceCreator` utility type.
-
   - Now you can structure your store in a modular, scalable way by composing smaller slices and combining them into a single store.
 
   ```ts
