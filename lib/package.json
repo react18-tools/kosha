@@ -55,33 +55,29 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@testing-library/react": "^16.3.0",
-    "@types/node": "^22.15.30",
-    "@types/react": "^19.1.7",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.5.1",
-    "@vitest/coverage-v8": "^3.2.3",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "@vitest/coverage-v8": "^3.2.4",
     "esbuild-plugin-rdi": "^0.0.0",
     "esbuild-plugin-react18": "0.2.6",
     "esbuild-plugin-react18-css": "^0.0.4",
     "immer": "^10.1.1",
     "jsdom": "^26.1.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.3"
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "@types/react": ">=18",
-    "next": ">=12.2",
-    "react": ">=18",
-    "immer": ">=9.0.0"
+    "immer": ">=9.0.0",
+    "react": ">=18"
   },
   "peerDependenciesMeta": {
-    "next": {
-      "optional": true
-    },
     "immer": {
       "optional": true
     }
