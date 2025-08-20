@@ -50,6 +50,6 @@
     "react-live": "^4.1.8",
     "react18-loaders": "^1.1.7",
     "typingfx": "^1.2.0",
-    "zustand": "^5.0.7"
+    "zustand": "^5.0.8"
   }
 }
