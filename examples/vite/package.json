@@ -15,8 +15,8 @@
     "@repo/shared": "workspace:*",
     "kosha": "workspace:*",
     "nextjs-darkmode": "^1.0.10",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-mouse-trails": "^0.0.5",
     "react18-loaders": "^1.1.12",
     "react18-themes": "^3.2.0"
