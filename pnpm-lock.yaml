@@ -21,8 +21,8 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1
       turbo:
-        specifier: ^2.8.6
-        version: 2.8.6
+        specifier: ^2.8.7
+        version: 2.8.7
 
   examples/nextjs:
     dependencies:
@@ -179,8 +179,8 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       vite-tsconfig-paths:
-        specifier: ^6.1.0
-        version: 6.1.0(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(sass@1.97.3)(yaml@2.7.0))
+        specifier: ^6.1.1
+        version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(sass@1.97.3)(yaml@2.7.0))
       vitest:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@25.2.3)(jsdom@28.0.0)(sass@1.97.3)(yaml@2.7.0)
@@ -214,8 +214,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.0.0)
       eslint-plugin-turbo:
-        specifier: ^2.8.6
-        version: 2.8.6(eslint@10.0.0)(turbo@2.8.6)
+        specifier: ^2.8.7
+        version: 2.8.7(eslint@10.0.0)(turbo@2.8.7)
       globals:
         specifier: ^17.3.0
         version: 17.3.0
@@ -314,8 +314,8 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       vite-tsconfig-paths:
-        specifier: ^6.1.0
-        version: 6.1.0(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(sass@1.97.3)(yaml@2.7.0))
+        specifier: ^6.1.1
+        version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(sass@1.97.3)(yaml@2.7.0))
       vitest:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@25.2.3)(jsdom@28.0.0)(sass@1.97.3)(yaml@2.7.0)
@@ -1801,8 +1801,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-turbo@2.8.6:
-    resolution: {integrity: sha512-ApMp9vaw5BbqK76fYnWqaGRwlqWKLU11GTF8YuZsDKpJJ+fLwMwfvmapy70y6Bm+fQx7opuoJTlyhlNgcgjV0A==}
+  eslint-plugin-turbo@2.8.7:
+    resolution: {integrity: sha512-NzYLXQ4o7JOwdEpULd8+hU+9XwOyqZIsT87xHwfYyDUGssz2ra1oSVnK2aGP1j5RB+er4f832Eytn/6k1JDyGA==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -3056,38 +3056,38 @@ packages:
       typescript:
         optional: true
 
-  turbo-darwin-64@2.8.6:
-    resolution: {integrity: sha512-6QeZ/aLZizekiI6tKZN0IGP1a1WYZ9c/qDKPa0rSmj2X0O0Iw/ES4rKZV40S5n8SUJdiU01EFLygHJ2oWaYKXg==}
+  turbo-darwin-64@2.8.7:
+    resolution: {integrity: sha512-Xr4TO/oDDwoozbDtBvunb66g//WK8uHRygl72vUthuwzmiw48pil4IuoG/QbMHd9RE8aBnVmzC0WZEWk/WWt3A==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.8.6:
-    resolution: {integrity: sha512-RS4Z902vB93cQD3PJS/1IMmS0HefrB5ZXuw4ECOrxhOGz5jJVmYFJ6weDzedjoTDeYHHXGo1NoiCSHg69ngWKA==}
+  turbo-darwin-arm64@2.8.7:
+    resolution: {integrity: sha512-p8Xbmb9kZEY/NoshQUcFmQdO80s2PCGoLYj5DbpxjZr3diknipXxzOK7pcmT7l2gNHaMCpFVWLkiFY9nO3EU5w==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.8.6:
-    resolution: {integrity: sha512-hCWDnDepYbrSJdByuryKFoHAGFkvgBYXr6qdaGsYhX1Wgq8isqXCQBKOo99Y/9tXDwKGEeQ7xnkdFvSL7AQ4iQ==}
+  turbo-linux-64@2.8.7:
+    resolution: {integrity: sha512-nwfEPAH3m5y/nJeYly3j1YJNYU2EG5+2ysZUxvBNM+VBV2LjQaLxB9CsEIpIOKuWKCjnFHKIADTSDPZ3D12J5Q==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.8.6:
-    resolution: {integrity: sha512-oS15aCYEpynG/l69xs/ZnQ0dnz0pHhfHg70Zf5J+j5Cam0/RA0MpcryjneN/9G0PmP8a/6ZxnL5nZahX+wOBPA==}
+  turbo-linux-arm64@2.8.7:
+    resolution: {integrity: sha512-mgA/M6xiJzyxtXV70TtWGDPh+I6acOKmeQGtOzbFQZYEf794pu5jax26bCk5skAp1gqZu3vacPr6jhYHoHU9IQ==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.8.6:
-    resolution: {integrity: sha512-eqBxqJD7H/uk9V0QO10VgwY9J2BUXejsGuzChln72Yl+o8GZwsvhOekndRxccR90J8ZO+LKO24+3VzHFh4Cu/g==}
+  turbo-windows-64@2.8.7:
+    resolution: {integrity: sha512-sHTYMaXuCcyHnGUQgfUUt7S8407TWoP14zc/4N2tsM0wZNK6V9h4H2t5jQPtqKEb6Fg8313kygdDgEwuM4vsHg==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.8.6:
-    resolution: {integrity: sha512-I3VEQyxIlNZ6XTg4fLKAkuhcwzIs/GD7Vs1yhelH2aUTjf08wprjBWknDqP7mjAHMpsosRrq4DtfSZEQm83Hxg==}
+  turbo-windows-arm64@2.8.7:
+    resolution: {integrity: sha512-WyGiOI2Zp3AhuzVagzQN+T+iq0fWx0oGxDfAWT3ZiLEd4U0cDUkwUZDKVGb3rKqPjDL6lWnuxKKu73ge5xtovQ==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.8.6:
-    resolution: {integrity: sha512-QMj1SQwUYehc+xJ9SxXn56UO43hfKN64/NFetVW1BwzysRqn+q0FSgrmk+IbJ+djfd8j8zXGKGeqsnUcXwQSUQ==}
+  turbo@2.8.7:
+    resolution: {integrity: sha512-RBLh5caMAu1kFdTK1jgH2gH/z+jFsvX5rGbhgJ9nlIAWXSvxlzwId05uDlBA1+pBd3wO/UaKYzaQZQBXDd7kcA==}
     hasBin: true
 
   type-check@0.4.0:
@@ -3163,8 +3163,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  vite-tsconfig-paths@6.1.0:
-    resolution: {integrity: sha512-kpd3sY9glHIDaq4V/Tlc1Y8WaKtutoc3B525GHxEVKWX42FKfQsXvjFOemu1I8VIN8pNbrMLWVTbW79JaRUxKg==}
+  vite-tsconfig-paths@6.1.1:
+    resolution: {integrity: sha512-2cihq7zliibCCZ8P9cKJrQBkfgdvcFkOOc3Y02o3GWUDLgqjWsZudaoiuOwO/gzTzy17cS5F7ZPo4bsnS4DGkg==}
     peerDependencies:
       vite: '*'
 
@@ -4866,11 +4866,11 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.8.6(eslint@10.0.0)(turbo@2.8.6):
+  eslint-plugin-turbo@2.8.7(eslint@10.0.0)(turbo@2.8.7):
     dependencies:
       dotenv: 16.0.3
       eslint: 10.0.0
-      turbo: 2.8.6
+      turbo: 2.8.7
 
   eslint-scope@9.1.0:
     dependencies:
@@ -6217,32 +6217,32 @@ snapshots:
       - tsx
       - yaml
 
-  turbo-darwin-64@2.8.6:
+  turbo-darwin-64@2.8.7:
     optional: true
 
-  turbo-darwin-arm64@2.8.6:
+  turbo-darwin-arm64@2.8.7:
     optional: true
 
-  turbo-linux-64@2.8.6:
+  turbo-linux-64@2.8.7:
     optional: true
 
-  turbo-linux-arm64@2.8.6:
+  turbo-linux-arm64@2.8.7:
     optional: true
 
-  turbo-windows-64@2.8.6:
+  turbo-windows-64@2.8.7:
     optional: true
 
-  turbo-windows-arm64@2.8.6:
+  turbo-windows-arm64@2.8.7:
     optional: true
 
-  turbo@2.8.6:
+  turbo@2.8.7:
     optionalDependencies:
-      turbo-darwin-64: 2.8.6
-      turbo-darwin-arm64: 2.8.6
-      turbo-linux-64: 2.8.6
-      turbo-linux-arm64: 2.8.6
-      turbo-windows-64: 2.8.6
-      turbo-windows-arm64: 2.8.6
+      turbo-darwin-64: 2.8.7
+      turbo-darwin-arm64: 2.8.7
+      turbo-linux-64: 2.8.7
+      turbo-linux-arm64: 2.8.7
+      turbo-windows-64: 2.8.7
+      turbo-windows-arm64: 2.8.7
 
   type-check@0.4.0:
     dependencies:
@@ -6333,7 +6333,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-tsconfig-paths@6.1.0(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(sass@1.97.3)(yaml@2.7.0)):
+  vite-tsconfig-paths@6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(sass@1.97.3)(yaml@2.7.0)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
