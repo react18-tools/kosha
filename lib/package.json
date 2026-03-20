@@ -64,7 +64,7 @@
     "esbuild-plugin-react18": "0.2.6",
     "esbuild-plugin-react18-css": "^0.0.4",
     "immer": "^11.1.4",
-    "jsdom": "^29.0.0",
+    "jsdom": "^29.0.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tsup": "^8.5.1",
