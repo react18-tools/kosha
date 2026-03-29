@@ -11,17 +11,20 @@
     "test": "turbo test",
     "typecheck": "turbo typecheck",
     "preinstall": "node scripts/update-pm.js",
-    "scan": ""
+    "scan": "promptshield --check"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^25.5.0",
     "prettier": "^3.8.1",
-    "turbo": "^2.8.20"
+    "turbo": "^2.8.21"
   },
   "packageManager": "pnpm@10.11.1",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@promptshield/cli": "^1.0.0"
   }
 }
